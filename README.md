@@ -36,7 +36,10 @@ Make sure the server is stopped before creating the symlink.
 
 ```
 rm -rf ./wp-content/plugins/depay-woocommerce-payments
-ln -s /Users/Sebastian/Work/DePay/web3-woocommerce-depay-payments ./wp-content/plugins/depay-woocommerce-payments
+ln -s /Users/Sebastian/Work/DePay/web3-woocommerce-depay-payments ./wp-content/plugins/web3-woocommerce-depay-payments
+
+rm -rf ./wp-content/plugins/web3-woocommerce-crypto-denomination
+ln -s /Users/Sebastian/Work/DePay/web3-woocommerce-crypto-denomination ./wp-content/plugins/web3-woocommerce-crypto-denomination
 ```
 
 Make sure you reset your local git repository once you're done testing with the symlink:
