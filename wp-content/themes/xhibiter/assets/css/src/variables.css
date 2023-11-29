@@ -1,0 +1,42 @@
+:root {
+	--deo-nav-links-color: #1b1b1b;
+	--deo-post-link-color: #8358ff;
+	--deo-primary-color: #8358ff;
+	--deo-primary-color-rgb: 131, 88, 255;
+	--deo-primary-color--light: #f2faf2;
+	--deo-border-color: #E7E8EC;
+	--deo-background-color--light: #f4f4f6;
+	--deo-background-color--dark: #101436;
+	--deo-color-jacarta-600: #363a5d;
+	--deo-color-jacarta-700: #131740;
+	--deo-color-jacarta-900: #0D102D;
+	--deo-heading-color: #131740;
+	--deo-text-color: #5a5d79;
+	--deo-text-color--light: #90939a;
+	--deo-green-color: #10B981;
+	--deo-heading-font-weigth: 600;
+	--deo-nav-height: 80px;
+	--deo-body-font: "DM Sans", sans-serif;
+	--deo-heading-font: "CalSans Semibold", sans-serif;
+	--deo-container-width--narrow: 770px;
+	--deo-container-width: 1170px;
+	--deo-container-width--wide: 1280px;
+	--deo-border-radius: 5px;
+	--deo-transition: 0.2s cubic-bezier(0.43, 0.07, 0.61, 0.95);
+	--deo-transition--all: all 0.2s cubic-bezier(0.43, 0.07, 0.61, 0.95);
+	--deo-btn-lg-size: 1rem;
+	--deo-btn-md-size: 0.875rem;
+	--deo-btn-sm-size: 0.75rem;
+	--deo-h1-size: 2.5rem;
+	--deo-h2-size: 2rem;
+	--deo-h3-size: 1.75rem;
+	--deo-h4-size: 1.5rem;
+	--deo-h5-size: 1.25rem;
+	--deo-h6-size: 1rem;
+}
+
+@supports (--css: variables) {
+	.dark  {
+		--deo-border-color: #363A5D;
+	}
+}

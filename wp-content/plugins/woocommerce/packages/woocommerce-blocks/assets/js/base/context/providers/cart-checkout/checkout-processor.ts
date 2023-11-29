@@ -14,7 +14,7 @@ import {
 	emptyHiddenAddressFields,
 	removeAllNotices,
 } from '@woocommerce/base-utils';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { useDispatch, useSelect, select as selectStore } from '@wordpress/data';
 import {
 	CHECKOUT_STORE_KEY,
 	PAYMENT_STORE_KEY,
@@ -58,6 +58,7 @@ const CheckoutProcessor = () => {
 		orderNotes,
 		shouldCreateAccount,
 		extensionData,
+		customerId,
 	} = useSelect( ( select ) => {
 		const store = select( CHECKOUT_STORE_KEY );
 		return {
@@ -69,6 +70,7 @@ const CheckoutProcessor = () => {
 			orderNotes: store.getOrderNotes(),
 			shouldCreateAccount: store.getShouldCreateAccount(),
 			extensionData: store.getExtensionData(),
+			customerId: store.getCustomerId(),
 		};
 	} );
 
@@ -160,6 +162,19 @@ const CheckoutProcessor = () => {
 
 	const checkValidation = useCallback( () => {
 		if ( hasValidationErrors() ) {
+			// If there is a shipping rates validation error, return the error message to be displayed.
+			if (
+				selectStore( VALIDATION_STORE_KEY ).getValidationError(
+					'shipping-rates-error'
+				) !== undefined
+			) {
+				return {
+					errorMessage: __(
+						'Sorry, this order requires a shipping option.',
+						'woo-gutenberg-products-block'
+					),
+				};
+			}
 			return false;
 		}
 		if ( hasPaymentError ) {
@@ -280,12 +295,20 @@ const CheckoutProcessor = () => {
 							__internalProcessCheckoutResponse( response );
 						} );
 				} catch {
+					let errorMessage = __(
+						'Something went wrong when placing the order. Check your email for order updates before retrying.',
+						'woo-gutenberg-products-block'
+					);
+
+					if ( customerId !== 0 ) {
+						errorMessage = __(
+							"Something went wrong when placing the order. Check your account's order history or your email for order updates before retrying.",
+							'woo-gutenberg-products-block'
+						);
+					}
 					processErrorResponse( {
 						code: 'unknown_error',
-						message: __(
-							'Something went wrong. Please try placing your order again.',
-							'woo-gutenberg-products-block'
-						),
+						message: errorMessage,
 						data: null,
 					} );
 				}

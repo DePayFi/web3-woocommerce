@@ -21,6 +21,11 @@ function jetpack_get_module_i18n( $key ) {
 				'description' => _x( 'An easy to use way for visitors to follow, like, and comment on your site.', 'Module Description', 'jetpack' ),
 			),
 
+			'blaze' => array(
+				'name' => _x( 'Blaze', 'Module Name', 'jetpack' ),
+				'description' => _x( 'Grow your audience by promoting your content across Tumblr and WordPress.com.', 'Module Description', 'jetpack' ),
+			),
+
 			'carousel' => array(
 				'name' => _x( 'Carousel', 'Module Name', 'jetpack' ),
 				'description' => _x( 'Display images and galleries in a gorgeous, full-screen browsing experience', 'Module Description', 'jetpack' ),
@@ -33,7 +38,7 @@ function jetpack_get_module_i18n( $key ) {
 
 			'comments' => array(
 				'name' => _x( 'Comments', 'Module Name', 'jetpack' ),
-				'description' => _x( 'Let visitors use a WordPress.com, Twitter, or Facebook account to comment', 'Module Description', 'jetpack' ),
+				'description' => _x( 'Let visitors use a WordPress.com or Facebook account to comment', 'Module Description', 'jetpack' ),
 			),
 
 			'contact-form' => array(
@@ -89,11 +94,6 @@ function jetpack_get_module_i18n( $key ) {
 			'latex' => array(
 				'name' => _x( 'Beautiful Math', 'Module Name', 'jetpack' ),
 				'description' => _x( 'Use the LaTeX markup language to write mathematical equations and formulas', 'Module Description', 'jetpack' ),
-			),
-
-			'lazy-images' => array(
-				'name' => _x( 'Lazy Images', 'Module Name', 'jetpack' ),
-				'description' => _x( 'Speed up your site and create a smoother viewing experience by loading images as visitors scroll down the screen, instead of all at once.', 'Module Description', 'jetpack' ),
 			),
 
 			'likes' => array(
@@ -168,7 +168,7 @@ function jetpack_get_module_i18n( $key ) {
 
 			'sharedaddy' => array(
 				'name' => _x( 'Sharing', 'Module Name', 'jetpack' ),
-				'description' => _x( 'Add Twitter and Facebook buttons at the bottom of each post, making it easy for visitors to share your content.', 'Module Description', 'jetpack' ),
+				'description' => _x( 'Add sharing buttons at the bottom of each post, making it easy for visitors to share your content.', 'Module Description', 'jetpack' ),
 			),
 
 			'shortcodes' => array(
@@ -197,7 +197,7 @@ function jetpack_get_module_i18n( $key ) {
 			),
 
 			'subscriptions' => array(
-				'name' => _x( 'Subscriptions', 'Module Name', 'jetpack' ),
+				'name' => _x( 'Newsletter', 'Module Name', 'jetpack' ),
 				'description' => _x( 'Let visitors subscribe to new posts and comments via email', 'Module Description', 'jetpack' ),
 			),
 
@@ -269,6 +269,7 @@ function jetpack_get_module_i18n_tag( $key ) {
 
 			// Modules with `Social` tag:
 			// - modules/action-bar.php
+			// - modules/blaze.php
 			// - modules/comment-likes.php
 			// - modules/comments.php
 			// - modules/gravatar-hovercards.php
@@ -281,6 +282,12 @@ function jetpack_get_module_i18n_tag( $key ) {
 			// - modules/subscriptions.php
 			// - modules/widgets.php
 			'Social' => _x( 'Social', 'Module Tag', 'jetpack' ),
+
+			// Modules with `Traffic` tag:
+			// - modules/blaze.php
+			// - modules/sitemaps.php
+			// - modules/wordads.php
+			'Traffic' => _x( 'Traffic', 'Module Tag', 'jetpack' ),
 
 			// Modules with `Photos and Videos` tag:
 			// - modules/carousel.php
@@ -306,7 +313,6 @@ function jetpack_get_module_i18n_tag( $key ) {
 			// - modules/custom-css.php
 			// - modules/gravatar-hovercards.php
 			// - modules/infinite-scroll.php
-			// - modules/lazy-images.php
 			// - modules/photon-cdn.php
 			// - modules/photon.php
 			// - modules/seo-tools.php
@@ -322,7 +328,6 @@ function jetpack_get_module_i18n_tag( $key ) {
 
 			// Modules with `Recommended` tag:
 			// - modules/google-fonts.php
-			// - modules/lazy-images.php
 			// - modules/monitor.php
 			// - modules/photon-cdn.php
 			// - modules/photon.php
@@ -347,11 +352,6 @@ function jetpack_get_module_i18n_tag( $key ) {
 			// Modules with `Admin` tag:
 			// - modules/post-list.php
 			'Admin' => _x( 'Admin', 'Module Tag', 'jetpack' ),
-
-			// Modules with `Traffic` tag:
-			// - modules/sitemaps.php
-			// - modules/wordads.php
-			'Traffic' => _x( 'Traffic', 'Module Tag', 'jetpack' ),
 
 			// Modules with `Jetpack Stats` tag:
 			// - modules/stats.php
@@ -400,6 +400,24 @@ function jetpack_get_module_info( $key ) {
 	    'additional_search_queries' => 'adminbar, actionbar, comments, likes, follow, sharing',
 	    'plan_classes' => '',
 	  ),
+	  'blaze' => 
+	  array (
+	    'name' => 'Blaze',
+	    'description' => 'Grow your audience by promoting your content across Tumblr and WordPress.com.',
+	    'sort' => '22',
+	    'recommendation_order' => '12',
+	    'introduced' => '12.3',
+	    'changed' => '',
+	    'deactivate' => '',
+	    'free' => '',
+	    'requires_connection' => 'Yes',
+	    'requires_user_connection' => '',
+	    'auto_activate' => 'Yes',
+	    'module_tags' => 'Traffic, Social',
+	    'feature' => '',
+	    'additional_search_queries' => 'advertising, ads',
+	    'plan_classes' => '',
+	  ),
 	  'carousel' => 
 	  array (
 	    'name' => 'Carousel',
@@ -439,7 +457,7 @@ function jetpack_get_module_info( $key ) {
 	  'comments' => 
 	  array (
 	    'name' => 'Comments',
-	    'description' => 'Let visitors use a WordPress.com, Twitter, or Facebook account to comment',
+	    'description' => 'Let visitors use a WordPress.com or Facebook account to comment',
 	    'sort' => '20',
 	    'recommendation_order' => '',
 	    'introduced' => '1.4',
@@ -451,7 +469,7 @@ function jetpack_get_module_info( $key ) {
 	    'auto_activate' => 'No',
 	    'module_tags' => 'Social',
 	    'feature' => 'Engagement',
-	    'additional_search_queries' => 'comments, comment, facebook, twitter, social',
+	    'additional_search_queries' => 'comments, comment, facebook, social',
 	    'plan_classes' => '',
 	  ),
 	  'contact-form' => 
@@ -652,24 +670,6 @@ function jetpack_get_module_info( $key ) {
 	    'additional_search_queries' => 'latex, math, equation, equations, formula, code',
 	    'plan_classes' => '',
 	  ),
-	  'lazy-images' => 
-	  array (
-	    'name' => 'Lazy Images',
-	    'description' => 'Speed up your site and create a smoother viewing experience by loading images as visitors scroll down the screen, instead of all at once.',
-	    'sort' => '24',
-	    'recommendation_order' => '14',
-	    'introduced' => '5.6.0',
-	    'changed' => '',
-	    'deactivate' => '',
-	    'free' => '',
-	    'requires_connection' => 'No',
-	    'requires_user_connection' => '',
-	    'auto_activate' => 'No',
-	    'module_tags' => 'Appearance, Recommended',
-	    'feature' => 'Appearance',
-	    'additional_search_queries' => 'mobile, theme, fast images, fast image, image, lazy, lazy load, lazyload, images, lazy images, thumbnail, image lazy load, lazy loading, load, loading',
-	    'plan_classes' => '',
-	  ),
 	  'likes' => 
 	  array (
 	    'name' => 'Likes',
@@ -865,7 +865,7 @@ function jetpack_get_module_info( $key ) {
 	    'auto_activate' => 'No',
 	    'module_tags' => 'Social, Recommended',
 	    'feature' => 'Engagement',
-	    'additional_search_queries' => 'facebook, jetpack publicize, twitter, tumblr, linkedin, social, tweet, connections, sharing, social media, automated, automated sharing, auto publish, auto tweet and like, auto tweet, facebook auto post, facebook posting',
+	    'additional_search_queries' => 'facebook, jetpack publicize, tumblr, linkedin, social, tweet, connections, sharing, social media, automated, automated sharing, auto publish, auto tweet and like, auto tweet, facebook auto post, facebook posting',
 	    'plan_classes' => '',
 	  ),
 	  'related-posts' => 
@@ -925,7 +925,7 @@ function jetpack_get_module_info( $key ) {
 	  'sharedaddy' => 
 	  array (
 	    'name' => 'Sharing',
-	    'description' => 'Add Twitter and Facebook buttons at the bottom of each post, making it easy for visitors to share your content.',
+	    'description' => 'Add sharing buttons at the bottom of each post, making it easy for visitors to share your content.',
 	    'sort' => '7',
 	    'recommendation_order' => '6',
 	    'introduced' => '1.1',
@@ -1032,7 +1032,7 @@ function jetpack_get_module_info( $key ) {
 	  ),
 	  'subscriptions' => 
 	  array (
-	    'name' => 'Subscriptions',
+	    'name' => 'Newsletter',
 	    'description' => 'Let visitors subscribe to new posts and comments via email',
 	    'sort' => '9',
 	    'recommendation_order' => '8',
@@ -1045,7 +1045,7 @@ function jetpack_get_module_info( $key ) {
 	    'auto_activate' => 'No',
 	    'module_tags' => 'Social',
 	    'feature' => 'Engagement',
-	    'additional_search_queries' => 'subscriptions, subscription, email, follow, followers, subscribers, signup',
+	    'additional_search_queries' => 'subscriptions, subscription, email, follow, followers, subscribers, signup, newsletter',
 	    'plan_classes' => '',
 	  ),
 	  'tiled-gallery' => 
@@ -1249,10 +1249,11 @@ function jetpack_get_all_module_header_names() {
 function jetpack_has_no_module_info( $slug ) {
 	$no_info_slugs = array (
 	  0 => 'geo-location',
-	  1 => 'module-extras',
-	  2 => 'module-info',
-	  3 => 'plugin-search',
-	  4 => 'theme-tools',
+	  1 => 'lazy-images',
+	  2 => 'module-extras',
+	  3 => 'module-info',
+	  4 => 'plugin-search',
+	  5 => 'theme-tools',
 	);
 
 	return in_array( $slug, $no_info_slugs, true );

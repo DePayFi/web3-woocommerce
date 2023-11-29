@@ -8,7 +8,9 @@
 
 use Automattic\Jetpack\Connection\Client;
 use Automattic\Jetpack\Connection\Manager;
+use Automattic\Jetpack\Search\Plan as Search_Plan;
 use Automattic\Jetpack\Status;
+use Automattic\Jetpack\Status\Visitor;
 
 /**
  * Class Jetpack_AI_Helper
@@ -29,6 +31,13 @@ class Jetpack_AI_Helper {
 	 * @var int
 	 */
 	public static $image_generation_cache_timeout = MONTH_IN_SECONDS;
+
+	/**
+	 * Cache AI-assistant feature for ten seconds.
+	 *
+	 * @var int
+	 */
+	public static $ai_assistant_feature_cache_timeout = 10;
 
 	/**
 	 * Stores the number of JetpackAI calls in case we want to mark AI-assisted posts some way.
@@ -86,6 +95,32 @@ class Jetpack_AI_Helper {
 	}
 
 	/**
+	 * Return true if the AI chat feature should be active on the current site.
+	 *
+	 * @todo IS_WPCOM (the endpoints need to be updated too).
+	 *
+	 * @return bool
+	 */
+	public static function is_ai_chat_enabled() {
+		$default = false;
+
+		$connection = new Manager();
+		$plan       = new Search_Plan();
+		if ( $connection->is_connected() && $plan->supports_search() ) {
+			$default = true;
+		}
+
+		/**
+		 * Filter whether the AI chat feature is enabled in the Jetpack plugin.
+		 *
+		 * @since 12.6
+		 *
+		 * @param bool $default Is AI chat enabled? Defaults to false.
+		 */
+		return apply_filters( 'jetpack_ai_chat_enabled', $default );
+	}
+
+	/**
 	 * Get the name of the transient for image generation. Unique per prompt and allows for reuse of results for the same prompt across entire WPCOM.
 	 * I expext "puppy" to always be from cache.
 	 *
@@ -100,6 +135,16 @@ class Jetpack_AI_Helper {
 	 */
 	public static function transient_name_for_completion() {
 		return 'jetpack_openai_completion_' . get_current_user_id(); // Cache for each user, so that other users dont get weird cached version from somebody else.
+	}
+
+	/**
+	 * Get the name of the transient for AI assistance feature. Unique per user.
+	 *
+	 * @param  int $blog_id - Blog ID to get the transient name for.
+	 * @return string
+	 */
+	public static function transient_name_for_ai_assistance_feature( $blog_id ) {
+		return 'jetpack_openai_ai_assistance_feature_' . $blog_id;
 	}
 
 	/**
@@ -126,14 +171,15 @@ class Jetpack_AI_Helper {
 	/**
 	 * Get text back from WordPress.com based off a starting text.
 	 *
-	 * @param  string $content The content that's already been typed in the block.
-	 * @param  int    $post_id Post ID for which the content is being generated.
+	 * @param  string $content    The content provided to send to the AI.
+	 * @param  int    $post_id    Post ID for which the content is being generated.
+	 * @param  bool   $skip_cache Skip cache and force a new request.
 	 * @return mixed
 	 */
-	public static function get_gpt_completion( $content, $post_id ) {
+	public static function get_gpt_completion( $content, $post_id, $skip_cache = false ) {
 		$content = wp_strip_all_tags( $content );
 		$cache   = get_transient( self::transient_name_for_completion() );
-		if ( $cache ) {
+		if ( $cache && ! $skip_cache ) {
 			return $cache;
 		}
 
@@ -200,7 +246,11 @@ class Jetpack_AI_Helper {
 		if ( wp_remote_retrieve_response_code( $response ) >= 400 ) {
 			return new WP_Error( $data->code, $data->message, $data->data );
 		}
-		set_transient( self::transient_name_for_completion(), $data, self::$text_completion_cooldown_seconds );
+
+		// Do not cache if it should be skipped.
+		if ( ! $skip_cache ) {
+			set_transient( self::transient_name_for_completion(), $data, self::$text_completion_cooldown_seconds );
+		}
 		self::mark_post_as_ai_assisted( $post_id );
 
 		return $data;
@@ -274,5 +324,139 @@ class Jetpack_AI_Helper {
 		self::mark_post_as_ai_assisted( $post_id );
 
 		return $data;
+	}
+
+	/**
+	 * Get an object with useful data about the requests made to the AI.
+	 *
+	 * @return mixed
+	 */
+	public static function get_ai_assistance_feature() {
+		$blog_id = Jetpack_Options::get_option( 'id' );
+
+		// Try to pick the AI Assistant feature from cache.
+		$transient_name = self::transient_name_for_ai_assistance_feature( $blog_id );
+		$cache          = get_transient( $transient_name );
+		if ( $cache ) {
+			return $cache;
+		}
+
+		if ( defined( 'IS_WPCOM' ) && IS_WPCOM ) {
+			$has_ai_assistant_feature = \wpcom_site_has_feature( 'ai-assistant' );
+			if ( ! class_exists( 'OpenAI' ) ) {
+				\require_lib( 'openai' );
+			}
+
+			if ( ! class_exists( 'OpenAI_Limit_Usage' ) ) {
+				if ( is_readable( WP_PLUGIN_DIR . '/openai/openai-limit-usage.php' ) ) {
+					require_once WP_PLUGIN_DIR . '/openai/openai-limit-usage.php';
+				} else {
+					return new WP_Error(
+						'openai_limit_usage_not_found',
+						__( 'OpenAI_Limit_Usage class not found.', 'jetpack' )
+					);
+				}
+			}
+
+			if ( ! class_exists( 'OpenAI_Request_Count' ) ) {
+				if ( is_readable( WP_PLUGIN_DIR . '/openai/openai-request-count.php' ) ) {
+					require_once WP_PLUGIN_DIR . '/openai/openai-request-count.php';
+				} else {
+					return new WP_Error(
+						'openai_request_count_not_found',
+						__( 'OpenAI_Request_Count class not found.', 'jetpack' )
+					);
+				}
+			}
+
+			if ( ! class_exists( 'WPCOM\Jetpack_AI\Usage\Helper' ) ) {
+				if ( is_readable( WP_CONTENT_DIR . '/lib/jetpack-ai/usage/helper.php' ) ) {
+					require_once WP_CONTENT_DIR . '/lib/jetpack-ai/usage/helper.php';
+				} else {
+					return new WP_Error(
+						'jetpack_ai_usage_helper_not_found',
+						__( 'WPCOM\Jetpack_AI\Usage\Helper class not found.', 'jetpack' )
+					);
+				}
+			}
+
+			$blog_id        = get_current_blog_id();
+			$is_over_limit  = \OpenAI_Limit_Usage::is_blog_over_request_limit( $blog_id );
+			$requests_limit = \OpenAI_Limit_Usage::get_free_requests_limit( $blog_id );
+			$requests_count = \OpenAI_Request_Count::get_count( $blog_id );
+
+			/*
+			 * Usage since the last plan purchase day
+			 */
+			$usage_period_start          = null;
+			$usage_next_period_start     = null;
+			$usage_period_requests_count = 0;
+
+			/*
+			 * Get current tier value, a number representing
+			 * the current tier of the site.
+			 *
+			 * - 0 represents a site with the free plan.
+			 * - 1 represents a site with the current, unlimited plan.
+			 * - 100, 200, 500 represents a site with the new plans,
+			 * with the respective number of allowed requests.
+			 */
+			$current_tier_value = $has_ai_assistant_feature ? 1 : 0;
+
+			// Check if the site requires an upgrade.
+			$require_upgrade = $is_over_limit && ! $has_ai_assistant_feature;
+
+			// Determine the upgrade type
+			$upgrade_type = wpcom_is_vip( $blog_id ) ? 'vip' : 'default';
+
+			return array(
+				'has-feature'          => $has_ai_assistant_feature,
+				'is-over-limit'        => $is_over_limit,
+				'requests-count'       => $requests_count,
+				'requests-limit'       => $requests_limit,
+				'usage-period'         => array(
+					'current-start'  => $usage_period_start,
+					'next-start'     => $usage_next_period_start,
+					'requests-count' => $usage_period_requests_count,
+				),
+				'site-require-upgrade' => $require_upgrade,
+				'upgrade-type'         => $upgrade_type,
+				'current-tier'         => array(
+					'value' => $current_tier_value,
+				),
+				'tier-plans'           => WPCOM\Jetpack_AI\Usage\Helper::get_tier_plans_list(),
+			);
+		}
+
+		$request_path = sprintf( '/sites/%d/jetpack-ai/ai-assistant-feature', $blog_id );
+
+		$wpcom_request = Client::wpcom_json_api_request_as_user(
+			$request_path,
+			'v2',
+			array(
+				'method'  => 'GET',
+				'headers' => array(
+					'X-Forwarded-For' => ( new Visitor() )->get_ip( true ),
+				),
+			),
+			null,
+			'wpcom'
+		);
+
+		$response_code = wp_remote_retrieve_response_code( $wpcom_request );
+		if ( 200 === $response_code ) {
+			$ai_assistant_feature_data = json_decode( wp_remote_retrieve_body( $wpcom_request ), true );
+
+			// Cache the AI Assistant feature, for Jetpack sites.
+			set_transient( $transient_name, $ai_assistant_feature_data, self::$ai_assistant_feature_cache_timeout );
+
+			return $ai_assistant_feature_data;
+		} else {
+			return new WP_Error(
+				'failed_to_fetch_data',
+				esc_html__( 'Unable to fetch the requested data.', 'jetpack' ),
+				array( 'status' => $response_code )
+			);
+		}
 	}
 }

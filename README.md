@@ -25,7 +25,7 @@ git submodule update --recursive --remote
 4. Start server
 
 ```
-php -S localhost:8000
+php -S 127.0.0.1:8000
 ```
 
 5. Visit localhost:8000 to install wordpress
@@ -36,10 +36,7 @@ Make sure the server is stopped before creating the symlink.
 
 ```
 rm -rf ./wp-content/plugins/depay-woocommerce-payments
-ln -s /Users/Sebastian/Work/DePay/web3-woocommerce-depay-payments ./wp-content/plugins/web3-woocommerce-depay-payments
-
-rm -rf ./wp-content/plugins/web3-woocommerce-crypto-denomination
-ln -s /Users/Sebastian/Work/DePay/web3-woocommerce-crypto-denomination ./wp-content/plugins/web3-woocommerce-crypto-denomination
+ln -s /Users/Sebastian/Work/DePay/web3-woocommerce-depay-payments ./wp-content/plugins/depay-woocommerce-payments
 ```
 
 Make sure you reset your local git repository once you're done testing with the symlink:

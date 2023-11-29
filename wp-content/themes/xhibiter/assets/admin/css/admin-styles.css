@@ -1,0 +1,367 @@
+/* Variables */
+:root {
+	--deo-gray-0: #f6f7f7;
+	--deo-gray-2: #f0f0f1;
+	--deo-gray-5: #dcdcde;
+	--deo-gray-20: #a7aaad;
+	--deo-gray-50: #646970;
+	--deo-gray-80: #2c3338;
+	--deo-blue-60: #135e96;
+	--deo-green-30: #00ba37;
+	--deo-red-50: #d63638;
+}
+
+/* Admin Styles
+-------------------------------------------------------*/
+.appearance_page_xhibiter-theme #wpcontent,
+.toplevel_page_xhibiter #wpcontent {
+	padding: 0;
+}
+
+.xhibiter-page-header {
+	padding: 10px 20px;
+	height: 50px;
+	background-color: #fff;
+}
+
+.xhibiter-page-header__container {
+	margin: 0 auto;
+	height: 100%;
+	max-width: 1140px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.xhibiter-page-header__branding {
+	display: flex;
+	align-items: center;
+}
+
+.xhibiter-page-header__logo {
+	vertical-align: middle;
+	max-width: 127px;
+}
+
+.xhibiter-theme-version {
+	background-color: #edf0f0;
+	padding: 3px 5px;
+	border-radius: 5px;
+	margin-left: 10px;
+}
+
+.xhibiter-page-header__tagline-text a {
+	text-decoration: none;
+}
+
+/* Content */
+.xhibiter-grid {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -12px;
+	margin-right: -12px;
+}
+
+.xhibiter-grid-content {
+	margin-bottom: 24px;
+}
+
+.xhibiter-grid-content,
+.xhibiter-grid-sidebar {
+	flex: 1 0 0%;
+	max-width: 100%;
+	padding: 0 12px;
+}
+
+@media screen and (min-width: 783px) {
+	.xhibiter-grid-sidebar {
+		max-width: 25%;
+		flex: 0 0 25%;
+		padding: 0 12px;
+	}
+}
+
+.xhibiter-widget {
+	background-color: #fff;
+	padding: 24px;
+	margin-bottom: 24px;
+}
+
+.xhibiter-widget-title {
+	margin-top: 0;
+	margin-bottom: 24px;
+}
+
+.xhibiter-video-tutorials__item {
+	margin-bottom: 16px;
+}
+
+.xhibiter-video-tutorials__url {
+	display: block;
+	position: relative;
+	border-radius: 5px;
+	overflow: hidden;
+	transition: ease-in-out box-shadow 0.2s;
+}
+
+.xhibiter-video-tutorials__url:hover {
+	box-shadow: 2px 6px 16px var(--deo-gray-5);
+}
+
+.xhibiter-video-tutorials__url:hover::after {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.xhibiter-video-tutorials__url::after {
+	display: block;
+	content: "";
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.2);
+	bottom: 0;
+	right: 0;
+	top: 0;
+	left: 0;
+	width: 100%;
+	transition: ease-in-out background-color 0.2s;
+}
+
+.xhibiter-video-tutorials__img {
+	width: 100%;
+	display: block;
+}
+
+.xhibiter-video-tutorials__label {
+	position: absolute;
+	z-index: 1;
+	top: 50%;
+	left: 50%;
+	white-space: nowrap;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	color: var(--deo-gray-80);
+	padding: 8px 12px;
+	font-size: 11px;
+	font-weight: 500;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+}
+
+.xhibiter-widget-video-tutorials__more-videos {
+	margin-top: 24px;
+	text-align: center;
+}
+
+/* Container
+-------------------------------------------------------*/
+.xhibiter-container {
+	max-width: 1140px;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin: 25px auto 20px;
+}
+
+.xhibiter-container .xhibiter-title {
+	font-size: 1.5rem;
+	line-height: 1.2;
+	padding: 0;
+}
+
+.xhibiter-body {
+	background-color: #fff;
+	padding: 40px;
+}
+
+.xhibiter-body ol {
+	font-size: 0.9375rem;
+}
+
+.xhibiter-body iframe {
+	max-width: 100%;
+	margin-top: 16px;
+}
+
+.xhibiter-body h3 {
+	margin-top: 1.5em;
+}
+
+.xhibiter-intro-text {
+	font-size: 1.1875rem;
+}
+
+.xhibiter-list {
+	line-height: 1.5;
+}
+
+/* Buttons
+-------------------------------------------------------*/
+.xhibiter-navigation-buttons {
+	display: grid;
+	gap: 10px;
+	grid-template-columns: repeat(3, 1fr);
+	margin-top: 2.5em;
+	margin-bottom: 2.5em;
+}
+
+.xhibiter-navigation-buttons__item {
+	margin: 0;
+}
+
+.xhibiter-navigation-buttons__url {
+	display: flex;
+	padding: 12px;
+	border-radius: 5px;
+	background-color: #fff;
+	border: 1px solid var(--deo-gray-5);
+	text-decoration: none;
+	transition: ease-in-out box-shadow 0.2s;
+}
+
+.xhibiter-navigation-buttons__url:hover {
+	box-shadow: 2px 6px 16px var(--deo-gray-5);
+}
+
+.xhibiter-navigation-buttons__icon {
+	display: inline-block;
+	margin-right: 8px;
+	color: var(--deo-gray-50);
+}
+
+/* Pro Demos
+-------------------------------------------------------*/
+.xhibiter-section {
+	padding-top: 20px;
+	margin-top: 40px;
+	border-top: 1px solid var(--deo-gray-5);
+}
+
+.xhibiter-heading {
+	font-size: 1.5em;
+	margin-bottom: 1.5em;
+}
+
+.xhibiter-pro-demos {
+	display: grid;
+	grid-gap: 20px;
+	grid-template-columns: repeat(3, 1fr);
+	min-height: 0;
+	min-width: 0;
+}
+
+.xhibiter-pro-demos__item {
+	min-width: 0;
+	margin-bottom: 0;
+}
+
+.xhibiter-pro-demos__item a {
+	text-decoration: none;
+	border-radius: 5px;
+	display: block;
+	overflow: hidden;
+	box-shadow: 0 0 4px var(--deo-gray-5);
+	transition: ease-in-out box-shadow 0.2s;
+}
+
+.xhibiter-pro-demos__item a:hover {
+	box-shadow: 2px 6px 16px var(--deo-gray-5);
+}
+
+.xhibiter-pro-demos__item img {
+	width: 100%;
+	display: block;
+}
+
+.xhibiter-pro-demos__item-title {
+	text-align: center;
+	font-size: 1em;
+	text-transform: uppercase;
+}
+
+/* Comparison Table
+-------------------------------------------------------*/
+table.xhibiter-comparison,
+.xhibiter-comparison thead td,
+.xhibiter-comparison thead th {
+	border-color: var(--deo-gray-5);
+}
+
+table.xhibiter-comparison {
+	box-shadow: none;
+	margin-bottom: 24px;
+}
+
+.xhibiter-comparison td,
+.xhibiter-comparison th {
+	padding: 12px;
+}
+
+.xhibiter-comparison tr th:not(:first-child),
+.xhibiter-comparison tr td:not(:first-child) {
+	text-align: center;
+}
+
+.xhibiter-list-item-icon {
+	color: var(--deo-green-30);
+}
+
+.xhibiter-list-item-icon--no {
+	color: var(--deo-red-50);
+}
+
+/* Useful Links
+-------------------------------------------------------*/
+.xhibiter-useful-links {
+	margin: 0;
+}
+
+.xhibiter-useful-links a {
+	text-decoration: none;
+}
+
+.xhibiter-addon-list-item {
+	-js-display: flex;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-moz-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-align-content: center;
+	-ms-flex-line-pack: center;
+	align-content: center;
+	justify-content: space-between;
+	padding: 12px 0;
+	margin-bottom: 0;
+	border-top: 1px solid #e6e6e6;
+}
+
+.xhibiter-addon-list-item-icon {
+	color: var(--deo-green-30);
+	margin-left: -6px;
+	margin-right: 3px;
+}
+
+/* Notification
+-------------------------------------------------------*/
+.xhibiter-notification {
+	margin: 20px 0 28px;
+	padding: 15px;
+	border-radius: 3px;
+}
+
+/* Disable kirki promotion
+-------------------------------------------------------*/
+.kirki-settings-panel > div,
+.kirki-recommended-plugins-panel {
+	display: none !important;
+}
+
+.kirki-settings-panel .kirki-clear-font-cache-metabox {
+	display: block !important;
+}

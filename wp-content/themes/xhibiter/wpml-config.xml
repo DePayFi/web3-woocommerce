@@ -1,0 +1,20 @@
+<wpml-config>
+  <admin-texts>
+    <key name="theme_mods_xhibiter">
+      <key name="xhibiter_settings_footer_bottom_text"/>
+      <key name="xhibiter_settings_cookies_message"/>
+      <key name="xhibiter_settings_cookies_button"/>
+      <key name="xhibiter_settings_cookies_learn_more_text"/>
+      <key name="xhibiter_settings_page_404_title"/>
+      <key name="xhibiter_settings_page_404_description"/>
+      <key name="xhibiter_settings_page_404_button_text"/>
+    </key>
+  </admin-texts>
+  <custom-types>
+    <custom-type translate="1">theme_template</custom-type>
+    <custom-type translate="1">projects</custom-type>
+  </custom-types>
+  <taxonomies>
+    <taxonomy translate="1">projects_categories</taxonomy>
+  </taxonomies>
+</wpml-config>

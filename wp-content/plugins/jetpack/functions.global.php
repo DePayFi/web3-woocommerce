@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.NotHyphenatedLowercase
 /**
  * This file is meant to be the home for any generic & reusable functions
  * that can be accessed anywhere within Jetpack.
@@ -15,9 +15,7 @@ use Automattic\Jetpack\Redirect;
 use Automattic\Jetpack\Status\Host;
 use Automattic\Jetpack\Sync\Functions;
 
-/**
- * Disable direct access.
- */
+// Disable direct access.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -120,7 +118,7 @@ function jetpack_get_future_removed_version( $version ) {
 	 */
 	preg_match( '#(([0-9]+\.([0-9]+))(?:\.[0-9]+)*)#', $version, $matches );
 
-	if ( isset( $matches[2], $matches[3] ) ) {
+	if ( isset( $matches[2] ) && isset( $matches[3] ) ) {
 		$deprecated_version = (float) $matches[2];
 		$deprecated_minor   = (float) $matches[3];
 
@@ -431,7 +429,7 @@ function jetpack_is_file_supported_for_sideloading( $file ) {
  * Go through headers and get a list of Vary headers to add,
  * including a Vary Accept header if necessary.
  *
- * @since 12.2-a.0
+ * @since 12.2
  *
  * @param array $headers The headers to be sent.
  *

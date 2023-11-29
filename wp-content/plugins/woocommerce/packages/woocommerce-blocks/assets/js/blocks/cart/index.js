@@ -36,9 +36,33 @@ const settings = {
 		html: false,
 		multiple: false,
 	},
+	example: {
+		attributes: {
+			isPreview: true,
+		},
+		viewportWidth: 800,
+	},
 	attributes: blockAttributes,
 	edit: Edit,
 	save: Save,
+	transforms: {
+		to: [
+			{
+				type: 'block',
+				blocks: [ 'woocommerce/classic-shortcode' ],
+				transform: ( attributes ) => {
+					return createBlock(
+						'woocommerce/classic-shortcode',
+						{
+							shortcode: 'cart',
+							align: attributes.align,
+						},
+						[]
+					);
+				},
+			},
+		],
+	},
 	// Migrates v1 to v2 checkout.
 	deprecated: [
 		{

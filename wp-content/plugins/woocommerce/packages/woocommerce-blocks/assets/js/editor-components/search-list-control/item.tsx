@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { CheckboxControl } from '@wordpress/components';
 import { useCallback } from '@wordpress/element';
 import { arrayDifferenceBy, arrayUnionBy } from '@woocommerce/utils';
+import { decodeEntities } from '@wordpress/html-entities';
 
 /**
  * Internal dependencies
@@ -33,13 +34,13 @@ const ItemLabel = ( props: { item: SearchListItemProps; search: string } ) => {
 				</span>
 			) : null }
 			<span className="woocommerce-search-list__item-name">
-				{ getHighlightedName( item.name, search ) }
+				{ getHighlightedName( decodeEntities( item.name ), search ) }
 			</span>
 		</span>
 	);
 };
 
-export const SearchListItem = ( {
+export const SearchListItem = < T extends object = object >( {
 	countLabel,
 	className,
 	depth = 0,
@@ -52,7 +53,7 @@ export const SearchListItem = ( {
 	selected,
 	useExpandedPanelId,
 	...props
-}: renderItemArgs ): JSX.Element => {
+}: renderItemArgs< T > ): JSX.Element => {
 	const [ expandedPanelId, setExpandedPanelId ] = useExpandedPanelId;
 	const showCount =
 		countLabel !== undefined &&
@@ -127,7 +128,10 @@ export const SearchListItem = ( {
 						)
 							? { indeterminate: true }
 							: {} ) }
-						label={ getHighlightedName( item.name, search ) }
+						label={ getHighlightedName(
+							decodeEntities( item.name ),
+							search
+						) }
 						onChange={ () => {
 							if ( isSelected ) {
 								onSelect(
@@ -159,30 +163,35 @@ export const SearchListItem = ( {
 	) : (
 		<label htmlFor={ id } className={ classes }>
 			{ isSingle ? (
-				<input
-					type="radio"
-					id={ id }
-					name={ name }
-					value={ item.value }
-					onChange={ onSelect( item ) }
-					checked={ isSelected }
-					className="woocommerce-search-list__item-input"
-					{ ...props }
-				></input>
-			) : (
-				<input
-					type="checkbox"
-					id={ id }
-					name={ name }
-					value={ item.value }
-					onChange={ onSelect( item ) }
-					checked={ isSelected }
-					className="woocommerce-search-list__item-input"
-					{ ...props }
-				></input>
-			) }
+				<>
+					<input
+						{ ...props }
+						type="radio"
+						id={ id }
+						name={ name }
+						value={ item.value }
+						onChange={ onSelect( item ) }
+						checked={ isSelected }
+						className="woocommerce-search-list__item-input"
+					></input>
 
-			<ItemLabel item={ item } search={ search } />
+					<ItemLabel item={ item } search={ search } />
+				</>
+			) : (
+				<CheckboxControl
+					{ ...props }
+					id={ id }
+					name={ name }
+					className="woocommerce-search-list__item-input"
+					value={ decodeEntities( item.value ) }
+					label={ getHighlightedName(
+						decodeEntities( item.name ),
+						search
+					) }
+					onChange={ onSelect( item ) }
+					checked={ isSelected }
+				/>
+			) }
 
 			{ showCount ? <Count label={ countLabel || item.count } /> : null }
 		</label>

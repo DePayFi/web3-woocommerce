@@ -1,0 +1,61 @@
+// Styles for both editor and front-end
+
+// Base
+@import "base/_mixins.scss";
+
+@include bp-lg-up {
+	.xhibiter-hero-title {
+		font-size: 4.375rem !important;
+	}
+}
+
+/* Buttons
+-------------------------------------------------------*/
+.wp-block-button .wp-block-button__link {
+	@include editor-button;
+}
+
+.wp-block-button__link,
+.wp-block-button__link:active,
+.wp-block-button__link:focus,
+.wp-block-button__link:hover,
+.wp-block-button__link:visited {
+	background-color: var(--deo-primary-color);
+}
+
+.wp-block-button__link:not(.has-white-background-color):active,
+.wp-block-button__link:not(.has-white-background-color):focus,
+.wp-block-button__link:not(.has-white-background-color):hover,
+.wp-block-button__link:not(.has-white-background-color):visited {
+	color: #fff !important;
+	border-color: transparent;
+}
+
+.wp-block-button.hover-underline .wp-block-button__link:hover,
+.wp-block-button.hover-underline .wp-block-button__link:focus {
+	color: inherit !important;
+}
+
+/* Font Sizes
+-------------------------------------------------------*/
+@include bp-lg-down {
+	.has-4-x-large-font-size,
+	.has-3-x-large-font-size {
+		font-size: var(--wp--preset--font-size--x-large) !important;
+	}
+
+	.has-2-x-large-font-size,
+	.has-x-large-font-size {
+		font-size: var(--wp--preset--font-size--large) !important;
+	}
+}
+
+/* Custom Block Styles
+-------------------------------------------------------*/
+@include bp-sm-up {
+	.editor-styles-wrapper div.is-style-xhibiter-negative-offset-left,
+	div.is-style-xhibiter-negative-offset-left {
+		margin-left: -100px;
+		z-index: 1;
+	}
+}

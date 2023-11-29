@@ -1,0 +1,131 @@
+@mixin transform($transform...) {
+	-webkit-transform: $transform;
+	-moz-transform: $transform;
+	-ms-transform: $transform;
+	-o-transform: $transform;
+	transform: $transform;
+}
+
+// --------------------------------
+// Color functions
+// --------------------------------
+
+@function hexToRGB($hex) {
+	@return red($hex), green($hex), blue($hex);
+}
+
+// define HSL color variable
+@mixin defineColorHSL($color, $hue, $saturation, $lightness) {
+	#{$color}: unquote("hsl(#{$hue}, #{$saturation}, #{$lightness})");
+	#{$color}-h: #{$hue};
+	#{$color}-s: #{$saturation};
+	#{$color}-l: #{$lightness};
+}
+
+@function alpha($color, $opacity) {
+	$color: str-replace($color, "var(");
+	$color: str-replace($color, ")");
+	$color-h: var(#{$color + "-h"});
+	$color-s: var(#{$color + "-s"});
+	$color-l: var(#{$color + "-l"});
+	@return hsla($color-h, $color-s, $color-l, $opacity);
+}
+
+// return color with different lightness value
+@function lightness($color, $lightnessMultiplier) {
+	$color: str-replace($color, "var(");
+	$color: str-replace($color, ")");
+	$color-h: var(#{$color + "-h"});
+	$color-s: var(#{$color + "-s"});
+	$color-l: var(#{$color + "-l"});
+	@return hsl($color-h, $color-s, calc(#{$color-l} * #{$lightnessMultiplier}));
+}
+
+// replace substring with another string
+// credits: https://css-tricks.com/snippets/sass/str-replace-function/
+@function str-replace($string, $search, $replace: "") {
+	$index: str-index($string, $search);
+	@if $index {
+		@return str-slice($string, 1, $index - 1) + $replace +
+			str-replace(
+				str-slice($string, $index + str-length($search)),
+				$search,
+				$replace
+			);
+	}
+	@return $string;
+}
+
+@mixin uppercase {
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+@mixin editor-button {
+	padding: 18px 36px;
+	font-size: 0.875rem;
+	border-radius: var(--deo-border-radius);
+	font-weight: 700;
+	white-space: nowrap;
+	text-decoration: none !important;
+	font-family: var(--deo-heading-font);
+	line-height: 1.3 !important;
+	transition: all 0.1s ease-in-out;
+}
+
+@mixin background-img-cover {
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+@mixin bp-xl-down {
+	@media only screen and (max-width: 1209px) {
+		@content;
+	}
+}
+
+@mixin bp-xl-up {
+	@media only screen and (min-width: 1210px) {
+		@content;
+	}
+}
+
+@mixin bp-lg-down {
+	@media only screen and (max-width: 1024px) {
+		@content;
+	}
+}
+
+@mixin bp-lg-up {
+	@media only screen and (min-width: 1025px) {
+		@content;
+	}
+}
+
+@mixin bp-md-down {
+	@media only screen and (max-width: 767px) {
+		@content;
+	}
+}
+
+@mixin bp-md-up {
+	@media only screen and (min-width: 768px) {
+		@content;
+	}
+}
+
+@mixin bp-sm-down {
+	@media only screen and (max-width: 575px) {
+		@content;
+	}
+}
+
+@mixin bp-sm-up {
+	@media only screen and (min-width: 576px) {
+		@content;
+	}
+}
