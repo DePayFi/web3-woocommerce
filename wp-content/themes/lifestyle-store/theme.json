@@ -20,7 +20,7 @@
                     "slug": "body-text"
                 },
                 {
-                    "color": "#f8f8f8",
+                    "color": "#f9f9f9",
                     "name": "Section Background",
                     "slug": "section-bg"
                 },
@@ -381,13 +381,47 @@
         }
     },
     "templateParts": [
-		{
-			"name": "header",
-			"area": "header"
-		},
-		{
-			"name": "footer",
-			"area": "footer"
-		}
-	]
+        {
+            "name": "header",
+            "area": "header",
+            "title": "Header"
+        },
+        {
+            "name": "footer",
+            "area": "footer",
+            "title": "Footer"
+        },
+        {
+            "name": "sidebar",
+            "area": "uncategorized",
+            "title": "Sidebar"
+        }
+    ],
+    "customTemplates": [
+        {
+            "name": "blog-grid-layout",
+            "postTypes": ["page"],
+            "title": "Grid Layout(Archieve posts)"
+        },
+        {
+            "name": "blog-left-sidebar",
+            "postTypes": ["page"],
+            "title": "Left Sidebar(Archieve posts)"
+        },
+        {
+            "name": "blog-right-sidebar",
+            "postTypes": ["page"],
+            "title": "Right Sidebar(Archieve posts)"
+        },
+        {
+            "name": "page-left-sidebar",
+            "postTypes": ["page"],
+            "title": "Page Left Sidebar"
+        },
+        {
+            "name": "page-right-sidebar",
+            "postTypes": ["page"],
+            "title": "Page Right Sidebar"
+        }
+    ]
 }

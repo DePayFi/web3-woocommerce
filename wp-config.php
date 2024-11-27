@@ -79,7 +79,7 @@ $table_prefix = 'wp_';
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-define( 'WP_DEBUG', false );
+define( 'WP_DEBUG', true );
 define( 'WP_MEMORY_LIMIT', '256M' );
 define( 'WP_MAX_UPLOAD_SIZE', '64M' );
 define( 'WP_POST_MAX_SIZE', '256M' );

@@ -734,14 +734,14 @@ class TypographyComponent extends Component {
 					{ controlLabel }
 					<div className="kadence-typography-controls">
 						{ this.state.isVisible && 'family' === this.controlParams.options && (
-							<Popover position="top right" className="kadence-popover-color kadence-popover-typography kadence-customizer-popover" onClose={ toggleClose }>
+							<Popover position="top right" inline={true} className="kadence-popover-color kadence-popover-typography kadence-customizer-popover" onClose={ toggleClose }>
 								<div className="kadence-popover-typography-single-item">
 									{ fontFamilyTab }
 								</div>
 							</Popover>
 						) }
 						{ this.state.isVisible && ( 'all' === this.controlParams.options || 'no-color' === this.controlParams.options ) && (
-							<Popover position="top left" className="kadence-popover-color kadence-popover-typography kadence-customizer-popover" onClose={ toggleClose }>
+							<Popover position="top left" inline={true} className="kadence-popover-color kadence-popover-typography kadence-customizer-popover" onClose={ toggleClose }>
 								<TabPanel className="kadence-popover-tabs kadence-typography-tabs kadence-background-tabs"
 									activeClass="active-tab"
 									initialTabName={ this.state.openTab }

@@ -1,4 +1,4 @@
-# Copyright (C) 2023 xhibiter
+# Copyright (C) 2024 xhibiter
 # This file is distributed under the same license as the xhibiter package.
 msgid ""
 msgstr ""
@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: DeoThemes <hello@deothemes.com>\n"
 "Last-Translator: Alexander Samokhin <hello@deothemes.com>\n"
-"POT-Creation-Date: 2023-09-10 11:56+0000\n"
+"POT-Creation-Date: 2024-02-28 13:26+0000\n"
 "Report-Msgid-Bugs-To: https://deothemes/contact/\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -86,23 +86,23 @@ msgstr ""
 msgid "Xhibiter"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/admin/theme-admin.php:50, wp-content/themes/xhibiter/includes/admin/theme-admin.php:84, wp-content/themes/xhibiter/includes/customizer/customizer.php:132, wp-content/themes/xhibiter/includes/customizer/customizer.php:138
+#: wp-content/themes/xhibiter/includes/admin/theme-admin.php:50, wp-content/themes/xhibiter/includes/admin/theme-admin.php:84, wp-content/themes/xhibiter/includes/customizer/customizer.php:133, wp-content/themes/xhibiter/includes/customizer/customizer.php:139
 msgid "Header"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/admin/theme-admin.php:55, wp-content/themes/xhibiter/includes/admin/theme-admin.php:89, wp-content/themes/xhibiter/includes/customizer/customizer.php:157
+#: wp-content/themes/xhibiter/includes/admin/theme-admin.php:55, wp-content/themes/xhibiter/includes/admin/theme-admin.php:89, wp-content/themes/xhibiter/includes/customizer/customizer.php:158
 msgid "Footer"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/admin/theme-admin.php:60, wp-content/themes/xhibiter/includes/customizer/customizer.php:163
+#: wp-content/themes/xhibiter/includes/admin/theme-admin.php:60, wp-content/themes/xhibiter/includes/customizer/customizer.php:164
 msgid "Layout"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/admin/theme-admin.php:65, wp-content/themes/xhibiter/includes/customizer/customizer.php:226
+#: wp-content/themes/xhibiter/includes/admin/theme-admin.php:65, wp-content/themes/xhibiter/includes/customizer/customizer.php:227
 msgid "Colors"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/admin/theme-admin.php:70, wp-content/themes/xhibiter/includes/admin/theme-admin.php:185, wp-content/themes/xhibiter/includes/customizer/customizer.php:254
+#: wp-content/themes/xhibiter/includes/admin/theme-admin.php:70, wp-content/themes/xhibiter/includes/admin/theme-admin.php:185, wp-content/themes/xhibiter/includes/customizer/customizer.php:255
 msgid "Typography"
 msgstr ""
 
@@ -355,135 +355,135 @@ msgstr ""
 msgid "Background Styles"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:102, wp-content/themes/xhibiter/includes/customizer/customizer.php:232
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:103, wp-content/themes/xhibiter/includes/customizer/customizer.php:233
 msgid "General"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:108
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:109
 msgid "Preloader"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:114, wp-content/themes/xhibiter/includes/customizer/modules/typography.php:229
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:115, wp-content/themes/xhibiter/includes/customizer/modules/colors.php:139, wp-content/themes/xhibiter/includes/customizer/modules/typography.php:229
 msgid "Buttons"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:120
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:121
 msgid "Back to Top"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:126
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:127
 msgid "Portfolio"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:144
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:145
 msgid "Logo"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:150
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:151
 msgid "Top Bar"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:169, wp-content/themes/xhibiter/includes/merlin/class-merlin.php:710, wp-content/themes/xhibiter/includes/merlin/class-merlin.php:1717
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:170, wp-content/themes/xhibiter/includes/merlin/class-merlin.php:710, wp-content/themes/xhibiter/includes/merlin/class-merlin.php:1717
 msgid "Content"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:175, wp-content/themes/xhibiter/includes/customizer/customizer.php:260
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:176, wp-content/themes/xhibiter/includes/customizer/customizer.php:261
 msgid "Blog"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:176
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:177
 msgid "Layout options for the blog pages"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:182, wp-content/themes/xhibiter/includes/customizer/customizer.php:278
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:183, wp-content/themes/xhibiter/includes/customizer/customizer.php:279
 msgid "Single Post"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:188
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:189
 msgid "Projects"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:189
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:190
 msgid "Layout options for the projects archive pages"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:195
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:196
 msgid "Page"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:196
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:197
 msgid "Layout options for the regular pages"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:202
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:203
 msgid "Archive"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:203
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:204
 msgid "Layout options for archive and categories pages"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:210, wp-content/themes/xhibiter/includes/customizer/customizer.php:239
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:211, wp-content/themes/xhibiter/includes/customizer/customizer.php:240
 msgid "Shop"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:211
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:212
 msgid "Layout options for shop catalog pages"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:218
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:219
 msgid "Search Results"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:219
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:220
 msgid "Layout options for search result page"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:247
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:248
 msgid "Cookies Bar"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:266, wp-content/themes/xhibiter/includes/customizer/modules/woocommerce.php:140
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:267, wp-content/themes/xhibiter/includes/customizer/modules/woocommerce.php:140
 msgid "Page Title"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:272
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:273
 msgid "Post Meta"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:285
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:286
 msgid "Social Share Buttons"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:292
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:293
 msgid "Excerpt"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:301
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:302
 msgid "Socials"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:302
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:303
 msgid "Socials options. Paste your social profile links here"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:308
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:309
 msgid "GDPR"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:309
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:310
 msgid "Settings for GDPR compliance."
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:317
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:318
 msgid "Page 404"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:318
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:319
 msgid "Settings for page 404"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/customizer.php:325
+#: wp-content/themes/xhibiter/includes/customizer/customizer.php:326
 msgid "Social share buttons"
 msgstr ""
 
@@ -603,51 +603,55 @@ msgstr ""
 msgid "Reddit"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:20, wp-content/themes/xhibiter/includes/theme-setup.php:62
+#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:32, wp-content/themes/xhibiter/includes/theme-setup.php:62
 msgid "Primary"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:35
+#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:73
 msgid "Headings"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:50
+#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:88
 msgid "Text"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:65
+#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:103
 msgid "Background light"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:82
+#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:120
 msgid "Borders"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:99
-msgid "Buttons hover background"
+#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:146
+msgid "Colored buttons hover background"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:115
-msgid "Buttons hover border"
+#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:167
+msgid "Hover background"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:131
-msgid "Buttons hover text"
+#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:183
+msgid "Hover border"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:153
+#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:199
+msgid "Hover text"
+msgstr ""
+
+#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:221
 msgid "Price color"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:179
+#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:247
 msgid "Cookies bar background color"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:202
+#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:270
 msgid "Cookies bar text color"
 msgstr ""
 
-#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:225
+#: wp-content/themes/xhibiter/includes/customizer/modules/colors.php:293
 msgid "Cookies bar link color"
 msgstr ""
 

@@ -68,6 +68,7 @@ if ( class_exists( 'Kirki' ) ) {
 		$body_font = ( isset( $typekit_fonts ) && ! empty( $typekit_fonts && isset( $typekit_fonts[1] ) ) ) ? $typekit_fonts[1] : 'DM Sans';
 		$border_color = '#ebebeb';
 		$primary_color = '#8358ff';
+		$primary_color_dark = '#7444FF';
 		$secondary_color = '#131740';
 		$text_color = '#5a5d79';
 		$bg_light = '#f4f4f6';

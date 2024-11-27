@@ -2,18 +2,21 @@
 	--deo-nav-links-color: #1b1b1b;
 	--deo-post-link-color: #8358ff;
 	--deo-primary-color: #8358ff;
-	--deo-primary-color-rgb: 131, 88, 255;
+	--deo-primary-color-rgb: 131 88 255;
+	--deo-primary-color-rgb--inner-shadow-bottom: 99 54 228;
+	--deo-primary-color-rgb--inner-shadow-top: 167 141 240;
+	--deo-primary-color-dark-rgb: 116 68 255;
 	--deo-primary-color--light: #f2faf2;
-	--deo-border-color: #E7E8EC;
+	--deo-border-color: #e7e8ec;
 	--deo-background-color--light: #f4f4f6;
 	--deo-background-color--dark: #101436;
 	--deo-color-jacarta-600: #363a5d;
 	--deo-color-jacarta-700: #131740;
-	--deo-color-jacarta-900: #0D102D;
+	--deo-color-jacarta-900: #0d102d;
 	--deo-heading-color: #131740;
 	--deo-text-color: #5a5d79;
 	--deo-text-color--light: #90939a;
-	--deo-green-color: #10B981;
+	--deo-green-color: #10b981;
 	--deo-heading-font-weigth: 600;
 	--deo-nav-height: 80px;
 	--deo-body-font: "DM Sans", sans-serif;
@@ -36,7 +39,7 @@
 }
 
 @supports (--css: variables) {
-	.dark  {
-		--deo-border-color: #363A5D;
+	.dark {
+		--deo-border-color: #363a5d;
 	}
 }

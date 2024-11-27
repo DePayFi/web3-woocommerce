@@ -10,6 +10,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit( 'Direct script access denied.' );
 }
 
+/**
+ * Extract RGB channels
+ */
+function xhibiter_extract_rgb_channels( $input ) {
+	$sanitized_value = str_replace( 'rgb', '', $input );
+	$sanitized_value = str_replace( '(', '', $sanitized_value );
+	$sanitized_value = str_replace( ')', '', $sanitized_value );
+	$sanitized_value = str_replace( ',', '', $sanitized_value );
+
+	return $sanitized_value;
+}
+
 /*-------------------------------------------------------*/
 /* General Colors
 /*-------------------------------------------------------*/
@@ -25,8 +37,34 @@ new \Kirki\Field\Color( array(
 			'element'  => 'body, :root',
 			'property' => '--deo-primary-color',
 		),
+		array(
+			'element'  => 'body, :root, [class*="elementor-kit-"]',
+			'property' => '--e-global-color-accent',
+		),		
+		array(
+			'element'  => 'body, :root',
+			'property' => '--deo-primary-color-rgb',
+			'sanitize_callback' => 'xhibiter_extract_rgb_channels',
+		),
+		array(
+			'element'  => 'body, :root',
+			'property' => '--deo-primary-color-rgb--inner-shadow-bottom',
+			'sanitize_callback' => function( $value ) {
+				return implode( ' ', Kirki_Color::get_rgb( Kirki_Color::adjust_brightness( $value, -40 ) ) );
+			},
+		),
+		array(
+			'element'  => 'body, :root',
+			'property' => '--deo-primary-color-rgb--inner-shadow-top',
+			'sanitize_callback' => function( $value ) {
+				return implode( ' ', Kirki_Color::get_rgb( Kirki_Color::adjust_brightness( $value, 40 ) ) );
+			},
+		),
 	),
-	'transport' => 'auto',
+	'choices'     => [
+		'alpha' => true,
+		'form_component' => 'RgbStringColorPicker',
+	],
 ) );
 
 // Headings colors
@@ -92,11 +130,41 @@ new \Kirki\Field\Color( array(
 	'transport' => 'auto',
 ) );
 
+
+// Buttons
+Kirki::add_field( 'xhibiter_settings_config', array(
+	'type'        => 'custom',
+	'settings'    => 'separator-' . $uniqid++,
+	'section'     => 'xhibiter_settings_general_colors',
+	'default'     => '<h3 class="customizer-title">' . esc_html__( 'Buttons', 'xhibiter' ) . '</h3>',
+) );
+
+// Colored buttons hover background color
+new \Kirki\Field\Color( array(
+	'type'        => 'color',
+	'settings'    => 'xhibiter_settings_colored_buttons_hover_background_color',
+	'label'       => esc_html__( 'Colored buttons hover background', 'xhibiter' ),
+	'section'     => 'xhibiter_settings_general_colors',
+	'default'     => $primary_color_dark,
+	'output' => array(
+		array(
+			'element' => 'body, :root',
+			'property' => '--deo-primary-color-dark-rgb',
+			'sanitize_callback' => 'xhibiter_extract_rgb_channels',
+		),
+	),
+	'choices'     => [
+		'alpha' => true,
+		'form_component' => 'RgbStringColorPicker',
+	],
+	// 'transport' => 'auto',
+) );
+
 // Buttons hover background color
 new \Kirki\Field\Color( array(
 	'type'        => 'color',
 	'settings'    => 'xhibiter_settings_buttons_hover_background_color',
-	'label'       => esc_html__( 'Buttons hover background', 'xhibiter' ),
+	'label'       => esc_html__( 'Hover background', 'xhibiter' ),
 	'section'     => 'xhibiter_settings_general_colors',
 	'default'     => $secondary_color,
 	'output' => array(
@@ -112,7 +180,7 @@ new \Kirki\Field\Color( array(
 new \Kirki\Field\Color( array(
 	'type'        => 'color',
 	'settings'    => 'xhibiter_settings_buttons_hover_border_color',
-	'label'       => esc_html__( 'Buttons hover border', 'xhibiter' ),
+	'label'       => esc_html__( 'Hover border', 'xhibiter' ),
 	'section'     => 'xhibiter_settings_general_colors',
 	'default'     => $secondary_color,
 	'output' => array(
@@ -128,7 +196,7 @@ new \Kirki\Field\Color( array(
 new \Kirki\Field\Color( array(
 	'type'        => 'color',
 	'settings'    => 'xhibiter_settings_buttons_hover_text_color',
-	'label'       => esc_html__( 'Buttons hover text', 'xhibiter' ),
+	'label'       => esc_html__( 'Hover text', 'xhibiter' ),
 	'section'     => 'xhibiter_settings_general_colors',
 	'default'     => '#ffffff',
 	'output' => array(

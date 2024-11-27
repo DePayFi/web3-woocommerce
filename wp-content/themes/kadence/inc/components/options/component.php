@@ -29,6 +29,7 @@ use function add_action;
  * * `kadence()->sidebar_options()`
  * * `kadence()->palette_option()`
  * * `kadence()->get_palette()`
+ * * `kadence()->get_pro_url()`
  */
 class Component implements Component_Interface, Templating_Component_Interface {
 
@@ -95,6 +96,13 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	protected static $custom_options = array();
 
 	/**
+	 * Holds allowed alt url values
+	 *
+	 * @var values of the allowed alt urls.
+	 */
+	protected static $allowed_urls = array( 'https://www.kadencewp.com/kadence-theme/hostinger/', 'https://www.kadencewp.com/kadence-theme/instawp/' );
+
+	/**
 	 * Gets the unique identifier for the theme component.
 	 *
 	 * @return string Component slug.
@@ -130,6 +138,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 			'get_palette'                => array( $this, 'get_palette' ),
 			'get_default_palette'        => array( $this, 'get_default_palette' ),
 			'get_palette_for_customizer' => array( $this, 'get_palette_for_customizer' ),
+			'get_pro_url'                => array( $this, 'get_pro_url' ),
 		);
 	}
 
@@ -1245,8 +1254,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 								'url'     => '',
 								'imageid' => '',
 								'width'   => 24,
-								'icon'    => 'twitter',
-								'label'   => 'Twitter',
+								'icon'    => 'twitterAlt2',
+								'label'   => 'X',
 							),
 							array(
 								'id'      => 'instagram',
@@ -1255,7 +1264,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 								'url'     => '',
 								'imageid' => '',
 								'width'   => 24,
-								'icon'    => 'instagram',
+								'icon'    => 'instagramAlt',
 								'label'   => 'Instagram',
 							),
 						),
@@ -1329,8 +1338,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 								'url'     => '',
 								'imageid' => '',
 								'width'   => 24,
-								'icon'    => 'twitter',
-								'label'   => 'Twitter',
+								'icon'    => 'twitterAlt2',
+								'label'   => 'X',
 							),
 							array(
 								'id'      => 'instagram',
@@ -1339,7 +1348,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 								'url'     => '',
 								'imageid' => '',
 								'width'   => 24,
-								'icon'    => 'instagram',
+								'icon'    => 'instagramAlt',
 								'label'   => 'Instagram',
 							),
 						),
@@ -2119,8 +2128,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 								'url'     => '',
 								'imageid' => '',
 								'width'   => 24,
-								'icon'    => 'twitter',
-								'label'   => 'Twitter',
+								'icon'    => 'twitterAlt2',
+								'label'   => 'X',
 							),
 							array(
 								'id'      => 'instagram',
@@ -2129,7 +2138,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 								'url'     => '',
 								'imageid' => '',
 								'width'   => 24,
-								'icon'    => 'instagram',
+								'icon'    => 'instagramAlt',
 								'label'   => 'Instagram',
 							),
 						),
@@ -2712,7 +2721,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 						'lineHeight' => array(
 							'desktop' => '',
 						),
-						'family'  => '',
+						'family'  => 'inherit',
 						'google'  => false,
 						'weight'  => '',
 						'variant' => '',
@@ -4195,6 +4204,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 					'sfwd-assignment_comments' => true,
 					// MISC
 					'ie11_basic_support' => false,
+					'theme_json_mode'    => false,
 				)
 			);
 		}
@@ -4574,6 +4584,43 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		}
 
 		return $value;
+	}
+	/**
+	 * Get Pro Url
+	 * 
+	 * @param string $url url.
+	 * @param string $initial_url initial url.
+	 * @param string $source source.
+	 * @param string $medium medium.
+	 * @param string $campaign campaign.
+	 */
+	public function get_pro_url( $url, $initial_url = '', $source = '', $medium = '', $campaign = '' ) {
+		if ( empty( $initial_url ) ) {
+			$initial_url = $url;
+		}
+		$partner_url = get_option( 'kadence_partner_pro_url', '' );
+		if ( ! empty( $partner_url ) && in_array( $partner_url, self::$allowed_urls, true ) ) {
+			$url = $partner_url;
+		}
+		$url = apply_filters( 'kadence_get_pro_url', $url, $initial_url );
+		if ( in_array( $url, self::$allowed_urls, true ) ) {
+			$url = $url;
+		} else {
+			$url = $initial_url;
+		}
+		// Add utm source.
+		if ( ! empty( $source ) ) {
+			$url = add_query_arg( 'utm_source', sanitize_text_field( $source ), $url );
+		}
+		// Add UTM medium.
+		if ( ! empty( $medium ) ) {
+			$url = add_query_arg( 'utm_medium', sanitize_text_field( $medium ), $url );
+		}
+		// Add UTM campaign.
+		if ( ! empty( $campaign ) ) {
+			$url = add_query_arg( 'utm_campaign', sanitize_text_field( $campaign ), $url );
+		}
+		return $url;
 	}
 	/**
 	 * Get Palette

@@ -2157,7 +2157,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 * @since 2.5.0
 		 */
 		function load_tgm_plugin_activation() {
-			$GLOBALS['xhibiter'] = TGM_Plugin_Activation::get_instance();
+			$GLOBALS['tgmpa'] = TGM_Plugin_Activation::get_instance();
 		}
 	}
 
@@ -2168,7 +2168,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 	}
 }
 
-if ( ! function_exists( 'xhibiter' ) ) {
+if ( ! function_exists( 'tgmpa' ) ) {
 	/**
 	 * Helper function to register a collection of required plugins.
 	 *
@@ -2179,7 +2179,7 @@ if ( ! function_exists( 'xhibiter' ) ) {
 	 * @param array $config  Optional. An array of configuration values.
 	 */
 	function tgmpa( $plugins, $config = array() ) {
-		$instance = call_user_func( array( get_class( $GLOBALS['xhibiter'] ), 'get_instance' ) );
+		$instance = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
 
 		foreach ( $plugins as $plugin ) {
 			call_user_func( array( $instance, 'register' ), $plugin );
@@ -2274,7 +2274,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		 * @since 2.2.0
 		 */
 		public function __construct() {
-			$this->tgmpa = call_user_func( array( get_class( $GLOBALS['xhibiter'] ), 'get_instance' ) );
+			$this->tgmpa = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
 
 			parent::__construct(
 				array(
@@ -3210,12 +3210,12 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 	 */
 	function tgmpa_load_bulk_installer() {
 		// Silently fail if 2.5+ is loaded *after* an older version.
-		if ( ! isset( $GLOBALS['xhibiter'] ) ) {
+		if ( ! isset( $GLOBALS['tgmpa'] ) ) {
 			return;
 		}
 
 		// Get TGMPA class instance.
-		$tgmpa_instance = call_user_func( array( get_class( $GLOBALS['xhibiter'] ), 'get_instance' ) );
+		$tgmpa_instance = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
 
 		if ( isset( $_GET['page'] ) && $tgmpa_instance->menu === $_GET['page'] ) {
 			if ( ! class_exists( 'Plugin_Upgrader', false ) ) {
@@ -3286,7 +3286,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 					 */
 					public function __construct( $skin = null ) {
 						// Get TGMPA class instance.
-						$this->tgmpa = call_user_func( array( get_class( $GLOBALS['xhibiter'] ), 'get_instance' ) );
+						$this->tgmpa = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
 
 						parent::__construct( $skin );
 
@@ -3622,7 +3622,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 					 */
 					public function __construct( $args = array() ) {
 						// Get TGMPA class instance.
-						$this->tgmpa = call_user_func( array( get_class( $GLOBALS['xhibiter'] ), 'get_instance' ) );
+						$this->tgmpa = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
 
 						// Parse default and new args.
 						$defaults = array(

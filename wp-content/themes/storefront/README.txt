@@ -2,8 +2,8 @@
 Contributors: automattic, tiagonoronha, jameskoster
 Requires at least: 5.3.4
 Tested up to: 6.3
-Stable tag: 4.5.3
-Version: 4.5.3
+Stable tag: 4.5.5
+Version: 4.5.5
 WC requires at least: 4.2
 WC tested up to: 8.1
 License: GPLv3 or later
@@ -18,14 +18,14 @@ Storefront is the perfect theme for your next WooCommerce project. Designed and 
 
 For more information about Storefront please go to https://woocommerce.com/products/storefront/.
 
-For even more customization, check out Storefront extensions https://woocommerce.com/product-category/storefront-extensions/ and Storefront child themes https://woocommerce.com/product-category/themes/storefront-child-theme-themes/.
+For even more customization, check out Storefront extensions https://woocommerce.com/product-category/storefront-extensions/ and Storefront child themes https://woocommerce.com/documentation/products/themes/storefront/child-themes/.
 
 == Installation ==
 
 1. In your admin panel, go to Appearance -> Themes and click the 'Add New' button.
 2. Type in Storefront in the search form and press the 'Enter' key on your keyboard.
 3. Click on the 'Activate' button to use your new theme right away.
-4. Go to https://docs.woocommerce.com/documentation/themes/storefront/ guides on how to customize this theme.
+4. Go to https://woocommerce.com/documentation/themes/storefront/ guides on how to customize this theme.
 5. Navigate to Appearance > Customize in your admin panel and customize to taste.
 
 == Copyright ==
@@ -50,6 +50,13 @@ To the best of our knowledge, Google doesn’t track nor share end user data.
 Privacy Policy for the Google Fonts API: https://developers.google.com/fonts/faq#what_does_using_the_google_fonts_api_mean_for_the_privacy_of_my_users
 
 == Changelog ==
+
+= 4.5.5 - 2024-04-11 =
+- Fix - Update Woo.com links to Wooommerce.com. ([#2142](https://github.com/woocommerce/storefront/pull/2142))
+
+= 4.5.4 - 2024-01-16 =
+- Fix - Update WooCommerce.com links to Woo.com. ([#2132](https://github.com/woocommerce/storefront/pull/2132) and [#2136](https://github.com/woocommerce/storefront/pull/2136))
+- Fix - Allow SVG in notice content. ([#2133](https://github.com/woocommerce/storefront/pull/2133))
 
 = 4.5.3 - 2023-09-26 =
 - Enhancement - Removed some unnecessary style in the Mix and Match CSS integration

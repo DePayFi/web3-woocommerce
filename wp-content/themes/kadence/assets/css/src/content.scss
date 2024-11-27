@@ -59,6 +59,10 @@ article.sticky {
 		margin-right: -1rem;
 		width: auto;
 	}
+	.content-width-fullwidth.content-style-boxed .content-bg:not(.loop-entry) {
+		margin-left: 0;
+		margin-right: 0;
+	}
 	.content-style-boxed .comments-area {
 		padding-left: 0.5rem;
 		padding-right: 0.5rem;
@@ -715,21 +719,23 @@ a.post-more-link {
 /*--------------------------------------------------------------
 ## Custom block font sizes.
 --------------------------------------------------------------*/
-
 .has-small-font-size {
-	font-size: $font-size-small;
+	font-size: var(--global-font-size-small);
 }
 
 .has-regular-font-size {
-	font-size: $font-size-regular;
+	font-size: var(--global-font-size-medium);
 }
 
 .has-large-font-size {
-	font-size: $font-size-large;
+	font-size: var(--global-font-size-large);
 }
 
 .has-larger-font-size {
-	font-size: $font-size-larger;
+	font-size: var(--global-font-size-larger);
+}
+.has-xxlarge-font-size {
+	font-size: var(--global-font-size-xxlarge);
 }
 
 .entry-content-asset.videofit{

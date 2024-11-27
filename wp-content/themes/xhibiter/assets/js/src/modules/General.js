@@ -25,16 +25,16 @@ class General {
 		var loader = document.querySelector(".loader");
 
 		if (loader) {
+			loaderMask.addEventListener("transitionend", function () {
+				loaderMask.remove();
+				loaderMask.classList.add("preloader--loaded");
+			});
+
 			loader.style.opacity = "0";
 			setTimeout(function () {
 				loaderMask.style.opacity = "0";
 			}, 350);
 			loaderMask.style.opacity = "0";
-
-			loaderMask.addEventListener("transitionend", function () {
-				loaderMask.remove();
-				loaderMask.classList.add("preloader--loaded");
-			});
 		}
 	}
 
@@ -172,12 +172,10 @@ class General {
 
 		for (var i = 0; i < tables.length; i++) {
 			let table = tables[i].innerHTML;
-			let tableResponsive =
-				'<div class="table-responsive">' + table + "</div>";
+			let tableResponsive = '<div class="table-responsive">' + table + "</div>";
 			tables[i].innerHTML = tableResponsive;
 		}
 	}
-	
 }
 
 export default General;

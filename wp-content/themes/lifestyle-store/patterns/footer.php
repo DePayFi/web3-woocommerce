@@ -7,8 +7,8 @@
 ?>
 
 <!-- wp:group {"style":{"spacing":{"padding":{"top":"60px","right":"20px","bottom":"60px","left":"20px"},"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"backgroundColor":"heading","textColor":"white","layout":{"type":"constrained","contentSize":"90%"},"fontSize":"small"} -->
-<div class="wp-block-group has-white-color has-heading-background-color has-text-color has-background has-small-font-size" style="margin-top:0;margin-bottom:0;padding-top:60px;padding-right:20px;padding-bottom:60px;padding-left:20px"><!-- wp:group {"align":"wide","style":{"elements":{"link":{"color":{"text":"var:preset|color|Background"}}},"spacing":{"margin":{"top":"0px","bottom":"0px"}}},"textColor":"Background","layout":{"type":"default"}} -->
-<div class="wp-block-group alignwide has-background-color has-text-color has-link-color" style="margin-top:0px;margin-bottom:0px"><!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|30","left":"var:preset|spacing|30"}}}} -->
+<div class="wp-block-group has-white-color has-heading-background-color has-text-color has-background has-small-font-size" style="margin-top:0;margin-bottom:0;padding-top:60px;padding-right:20px;padding-bottom:60px;padding-left:20px"><!-- wp:group {"align":"wide","style":{"elements":{"link":{"color":{"text":"var:preset|color|Background"}}},"spacing":{"margin":{"top":"0px","bottom":"0px"}}},"textColor":"Background","className":"wow rubberBand","layout":{"type":"default"}} -->
+<div class="wp-block-group alignwide wow rubberBand has-background-color has-text-color has-link-color" style="margin-top:0px;margin-bottom:0px"><!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|30","left":"var:preset|spacing|30"}}}} -->
 <div class="wp-block-columns"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
 <div class="wp-block-group"><!-- wp:site-logo /-->
@@ -153,13 +153,17 @@
 <!-- wp:group {"style":{"spacing":{"padding":{"top":"20px","right":"20px","bottom":"20px","left":"20px"}},"color":{"background":"#0B4D4A"}},"textColor":"white","layout":{"type":"constrained","contentSize":"90%"}} -->
 <div class="wp-block-group has-white-color has-text-color has-background" style="background-color:#0B4D4A;padding-top:20px;padding-right:20px;padding-bottom:20px;padding-left:20px"><!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
 <div class="wp-block-group alignwide"><!-- wp:group {"className":"copyright-text","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
-<div class="wp-block-group copyright-text"><!-- wp:paragraph {"textColor":"Background","fontFamily":"merriweather"} -->
-<p class="has-background-color has-text-color has-merriweather-font-family"><?php esc_html_e('© Copyright 2023. All Rights Reserved.','lifestyle-store'); ?></p>
+<div class="wp-block-group copyright-text"><!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|Background"}}},"layout":{"selfStretch":"fit","flexSize":null}},"textColor":"Background","fontFamily":"merriweather"} -->
+<p class="has-background-color has-text-color has-link-color has-merriweather-font-family"><a rel="noreferrer noopener" href="https://www.ovationthemes.com/wordpress/free-lifestyle-wordpress-theme/" target="_blank"><?php esc_html_e('Lifestyle Store WordPress Theme','lifestyle-store'); ?></a>.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|Background"}}},"layout":{"selfStretch":"fit","flexSize":null}},"textColor":"Background","fontFamily":"merriweather"} -->
 <p class="has-background-color has-text-color has-link-color has-merriweather-font-family"><?php esc_html_e('Proudly powered by ','lifestyle-store'); ?><a rel="noreferrer noopener" href="https://www.ovationthemes.com/" target="_blank"><?php esc_html_e('Ovation Themes','lifestyle-store'); ?></a> <?php esc_html_e('and','lifestyle-store'); ?> <a href="https://wordpress.org"><?php esc_html_e('WordPress','lifestyle-store'); ?></a>.</p>
 <!-- /wp:paragraph --></div>
-<!-- /wp:group --></div>
+<!-- /wp:group -->
+
+<!-- wp:paragraph {"className":"scroll-top"} -->
+<p class="scroll-top"></p>
+<!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->

@@ -209,15 +209,15 @@ var General = /*#__PURE__*/function () {
       var loaderMask = document.querySelector(".loader-mask");
       var loader = document.querySelector(".loader");
       if (loader) {
+        loaderMask.addEventListener("transitionend", function () {
+          loaderMask.remove();
+          loaderMask.classList.add("preloader--loaded");
+        });
         loader.style.opacity = "0";
         setTimeout(function () {
           loaderMask.style.opacity = "0";
         }, 350);
         loaderMask.style.opacity = "0";
-        loaderMask.addEventListener("transitionend", function () {
-          loaderMask.remove();
-          loaderMask.classList.add("preloader--loaded");
-        });
       }
     }
   }, {

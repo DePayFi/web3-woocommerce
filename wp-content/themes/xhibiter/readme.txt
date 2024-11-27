@@ -1,10 +1,10 @@
 === Xhibiter ===
 Tags: blog, portfolio, translation-ready, theme-options, grid-layout, left-sidebar, right-sidebar, custom-colors, custom-background, custom-logo, footer-widgets, featured-images, custom-menu, block-styles, wide-blocks, rtl-language-support
 Requires at least: 5.0
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 1.1
-Contributors: DeoThemes
+Stable tag: 1.2
+Contributors: DeoThemes, freemius
 Theme URI: https://deothemes.com/wordpress-themes/xhibiter-digital-art-ecommerce-crypto-wordpress-theme/
 Author URI: https://deothemes.com/
 Author: DeoThemes
@@ -26,6 +26,31 @@ Xhibiter is a cutting-edge WordPress theme designed specifically for creating NF
 https://docs.deothemes.com/xhibiter/
 
 == Changelog ==
+
+Version 1.2 - February 28, 2024
+- Improved: Color customization via Customizer
+
+Version 1.1.5 - February 14, 2024
+- Fixed: Author box social URLs
+- Improved: Compatibility with PHP 8.2
+- Improved: Eversor compatibility with the latest Elementor
+- Updated: Eversor to 1.0.3
+
+Version 1.1.4 - January 16, 2024
+- Fixed: Do not show quantity input if product sold individually
+
+Version 1.1.3 - January 4, 2024
+- New: Ability to edit dark mode product colors for Eversor widgets
+- Updated: Eversor to 1.0.2
+
+Version 1.1.2 - December 1, 2023
+- Improved: WooCommerce cart page styles
+- Improved: Disable block library styles on all pages except single post
+- Fixed: tgmpa function check
+
+Version 1.1.1 - November 24, 2023
+- Fixed: WooCommerce product thumbs horizontal scrollbar
+- Fixed: WooCommerce product tabs responsive styles
 
 Version 1.1 - September 10, 2023
 - New: Elementor WooCommerce product builder

@@ -1,10 +1,10 @@
 === Kadence ===
 Contributors: britner
 Tags: translation-ready, two-columns, right-sidebar, left-sidebar, footer-widgets, blog, custom-logo, custom-background, custom-menu, rtl-language-support, editor-style, threaded-comments, custom-colors, featured-images, wide-blocks, full-width-template, theme-options, e-commerce.
-Requires at least: 5.4
-Tested up to: 6.3
-Requires PHP: 7.2
-Stable tag: 1.1.48
+Requires at least: 6.2
+Tested up to: 6.5
+Requires PHP: 7.4
+Stable tag: 1.2.4
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,22 +18,55 @@ Kadence is released under GNU General Public License v3.0 (or later)
 
 == Frequently Asked Questions ==
 = Where do I report security bugs found in this theme? =
-Please report security bugs found in the source code of the
-Kadence Theme through the [Patchstack
-Vulnerability Disclosure Program] https://patchstack.com/database/vdp/kadence. The
-Patchstack team will assist you with verification, CVE assignment, and
-notify the developers of this theme.
+Please report security bugs found in the source code of the Kadence Theme through the [Patchstack Vulnerability Disclosure Program] https://patchstack.com/database/vdp/kadence. The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this theme.
 
 == Security Policy ==
 = Reporting Security Bugs =
-Please report security bugs found in the
-Kadence theme's source code through the
-Patchstack Vulnerability Disclosure
-Program https://patchstack.com/database/vdp/kadence. The Patchstack team will
-assist you with verification, CVE assignment, and notify the
-developers of this theme.
+Please report security bugs found in the Kadence theme's source code through the Patchstack Vulnerability Disclosure Program https://patchstack.com/database/vdp/kadence. The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this theme.
 
 = Changelog =
+
+== 1.2.4 | 10th April 2024 ==
+* Add: Option for transparent header on events archive.
+* Update: Google Font choices.
+* Update: Default icons for social, X and Instagram. 
+* Fix: CSS with with payments on product pages.
+* Fix: CSS with TEC single events.
+* Fix: Editor width in unboxed mode.
+
+== 1.2.3 | 21st March 2024 ==
+* Fix: CSS determining content width.
+
+== 1.2.2 | 20th March 2024 ==
+* Fix: Possible issue where theme settings defaults were not being set.
+
+== 1.2.1 | 19th March 2024 ==
+* Add: Option to enable theme.json mode (changes to group block markup) - disabled by default.
+
+== 1.2.0 | 19th March 2024 ==
+* Add: theme.json file to better support core blocks.
+* Add: Threads to social media options.
+* Update: Post styles in editor when using iframe editor.
+* Fix: Issue with possible desktop touch devices and top level menu items.
+* Fix: Issue with transparent header and tribe events.
+* Fix: Issue with button styles in the customizer. 
+
+== 1.1.51 | 15th January 2024 ==
+* Fix: Issue with starter templates admin page link.
+
+== 1.1.50 | 18th December 2023 ==
+* Update: add requests after content hook.
+* Update: Google Fonts selection.
+* Fix: possible css issue in footer column sizing.
+* Fix: Possible css issue with product grid.
+* Fix: css specificity issue with button.
+* Fix: Issue with elementor cart and checkout widget.
+* Fix: Possible logo size issue when shrinking in dark mode.
+* Fix: Spacing issue with fullwidth in boxed mode on mobile.
+
+== 1.1.49 | 9th November 2023 ==
+* Fix: Issue with image select in customizer.
+* Fix: Issue with gradient control in customizer.
 
 == 1.1.48 | 18th October 2023 ==
 * Add: Option to use logo icon.

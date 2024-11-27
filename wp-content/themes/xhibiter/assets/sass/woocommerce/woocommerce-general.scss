@@ -200,8 +200,8 @@ p.demo_store,
 				&::before,
 				&::after {
 					content: "";
-					display: block;							
-					position: absolute;							
+					display: block;
+					position: absolute;
 					box-sizing: content-box;
 				}
 
@@ -223,11 +223,9 @@ p.demo_store,
 					left: 22px;
 					transform: rotate(-45deg);
 				}
-
 			}
 
 			.flex-control-thumbs {
-				overflow-y: auto;
 				zoom: 1;
 				padding: 0;
 
@@ -286,19 +284,27 @@ p.demo_store,
 				position: relative;
 				display: flex;
 
+				@include bp-sm-down {
+					flex-wrap: wrap;
+
+					li {
+						width: 100%;
+					}
+				}
+
 				li {
 					padding: 0 1.5rem;
 					display: inline-block;
 					position: relative;
 					text-align: center;
-	
+
 					&:not(.active) {
 						border-bottom: 2px solid var(--deo-border-color);
 					}
 
 					a {
 						width: 100%;
-						display: inline-block;						
+						display: inline-block;
 						text-decoration: none;
 
 						&:hover {
@@ -310,7 +316,6 @@ p.demo_store,
 					&.active {
 						z-index: 2;
 						border-bottom: 2px solid var(--deo-primary-color);
-
 					}
 				}
 			}
@@ -479,7 +484,6 @@ p.demo_store,
 		}
 
 		.price {
-
 			del {
 				color: inherit;
 				opacity: 0.5;

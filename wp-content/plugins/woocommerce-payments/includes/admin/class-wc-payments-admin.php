@@ -205,7 +205,6 @@ class WC_Payments_Admin {
 		add_action( 'admin_menu', [ $this, 'add_payments_menu' ], 0 );
 		add_action( 'admin_init', [ $this, 'maybe_redirect_to_onboarding' ], 11 ); // Run this after the WC setup wizard and onboarding redirection logic.
 		add_action( 'admin_enqueue_scripts', [ $this, 'maybe_redirect_overview_to_connect' ], 1 ); // Run this late (after `admin_init`) but before any scripts are actually enqueued.
-		add_action( 'admin_enqueue_scripts', [ $this, 'maybe_redirect_onboarding_flow_to_connect' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'register_payments_scripts' ], 9 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_payments_scripts' ], 9 );
 		add_action( 'woocommerce_admin_field_payment_gateways', [ $this, 'payment_gateways_container' ] );
@@ -230,7 +229,7 @@ class WC_Payments_Admin {
 						<?php esc_html( ' ' . get_woocommerce_currency() ); ?>
 					</b>
 					<?php
-						echo sprintf(
+						printf(
 							/* translators: %s: WooPayments*/
 							esc_html__( 'The selected currency is not available for the country set in your %s account.', 'woocommerce-payments' ),
 							'WooPayments'
@@ -286,55 +285,6 @@ class WC_Payments_Admin {
 	}
 
 	/**
-	 * Add deposits and transactions menus for wcpay_empty_state_preview_mode_v1 experiment's treatment group.
-	 * This code can be removed once we're done with the experiment.
-	 */
-	public function add_payments_menu_for_treatment() {
-		wc_admin_register_page(
-			[
-				'id'         => 'wc-payments',
-				'title'      => __( 'Payments', 'woocommerce-payments' ),
-				'capability' => 'manage_woocommerce',
-				'path'       => '/payments/deposits',
-				'position'   => '55.7', // After WooCommerce & Product menu items.
-				'nav_args'   => [
-					'title'        => 'WooPayments',
-					'is_category'  => true,
-					'menuId'       => 'plugins',
-					'is_top_level' => true,
-				],
-			]
-		);
-
-		wc_admin_register_page( $this->admin_child_pages['wc-payments-deposits'] );
-		wc_admin_register_page( $this->admin_child_pages['wc-payments-transactions'] );
-		wc_admin_register_page(
-			[
-				'id'       => 'wc-payments-connect',
-				'title'    => __( 'Connect', 'woocommerce-payments' ),
-				'parent'   => 'wc-payments',
-				'path'     => '/payments/connect',
-				'nav_args' => [
-					'parent' => 'wc-payments',
-					'order'  => 10,
-				],
-			]
-		);
-
-		// RTL=false for these files as they aren't currently transpiled by webpack.
-		WC_Payments_Utils::enqueue_style(
-			'wcpay-admin-css',
-			plugins_url( 'assets/css/admin.css', WCPAY_PLUGIN_FILE ),
-			[],
-			WC_Payments::get_file_version( 'assets/css/admin.css' ),
-			'all',
-			false
-		);
-
-		$this->add_menu_notification_badge();
-	}
-
-	/**
 	 * Add payments menu items.
 	 */
 	public function add_payments_menu() {
@@ -343,14 +293,21 @@ class WC_Payments_Admin {
 		}
 		global $submenu;
 
+		// If the user is redirected to the page after Stripe KYC with an error, refresh the account data.
+		// The GET parameter accessed here comes from server and is just to indicate that some error occured. For this reason we're not using a nonce.
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_GET['wcpay-connection-error'] ) ) {
+			$this->account->refresh_account_data();
+		}
 		try {
-			$should_render_full_menu = $this->account->is_stripe_account_valid();
+			// Render full payments menu with sub-items only if the merchant completed the KYC (details_submitted = true).
+			$should_render_full_menu = $this->account->is_stripe_connected() && $this->account->is_details_submitted();
 		} catch ( Exception $e ) {
-			// There is an issue with connection but render full menu anyways to provide access to settings.
-			$should_render_full_menu = true;
+			// There is an issue with connection, don't render full menu, user will get redirected to the connect page.
+			$should_render_full_menu = false;
 		}
 
-		$top_level_link = $should_render_full_menu ? '/payments/overview' : '/payments/connect';
+		$top_level_link = $this->account->is_stripe_connected() ? '/payments/overview' : '/payments/connect';
 
 		$menu_icon = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgdmVyc2lvbj0iMS4xIgogICBpZD0ic3ZnNjciCiAgIHNvZGlwb2RpOmRvY25hbWU9IndjcGF5X21lbnVfaWNvbi5zdmciCiAgIHdpZHRoPSI4NTIiCiAgIGhlaWdodD0iNjg0IgogICBpbmtzY2FwZTp2ZXJzaW9uPSIxLjEgKGM0ZThmOWUsIDIwMjEtMDUtMjQpIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzCiAgICAgaWQ9ImRlZnM3MSIgLz4KICA8c29kaXBvZGk6bmFtZWR2aWV3CiAgICAgaWQ9Im5hbWVkdmlldzY5IgogICAgIHBhZ2Vjb2xvcj0iI2ZmZmZmZiIKICAgICBib3JkZXJjb2xvcj0iIzY2NjY2NiIKICAgICBib3JkZXJvcGFjaXR5PSIxLjAiCiAgICAgaW5rc2NhcGU6cGFnZXNoYWRvdz0iMiIKICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMC4wIgogICAgIGlua3NjYXBlOnBhZ2VjaGVja2VyYm9hcmQ9IjAiCiAgICAgc2hvd2dyaWQ9ImZhbHNlIgogICAgIGZpdC1tYXJnaW4tdG9wPSIwIgogICAgIGZpdC1tYXJnaW4tbGVmdD0iMCIKICAgICBmaXQtbWFyZ2luLXJpZ2h0PSIwIgogICAgIGZpdC1tYXJnaW4tYm90dG9tPSIwIgogICAgIGlua3NjYXBlOnpvb209IjI1NiIKICAgICBpbmtzY2FwZTpjeD0iLTg0Ljg1NzQyMiIKICAgICBpbmtzY2FwZTpjeT0iLTgzLjI5NDkyMiIKICAgICBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjEzMTIiCiAgICAgaW5rc2NhcGU6d2luZG93LWhlaWdodD0iMTA4MSIKICAgICBpbmtzY2FwZTp3aW5kb3cteD0iMTE2IgogICAgIGlua3NjYXBlOndpbmRvdy15PSIyMDIiCiAgICAgaW5rc2NhcGU6d2luZG93LW1heGltaXplZD0iMCIKICAgICBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJzdmc2NyIgLz4KICA8cGF0aAogICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEsIDEpIHRyYW5zbGF0ZSgtODUwLCAwKSIKICAgICBkPSJNIDc2OCw4NiBWIDU5OCBIIDg0IFYgODYgWiBtIDAsNTk4IGMgNDgsMCA4NCwtMzggODQsLTg2IFYgODYgQyA4NTIsMzggODE2LDAgNzY4LDAgSCA4NCBDIDM2LDAgMCwzOCAwLDg2IHYgNTEyIGMgMCw0OCAzNiw4NiA4NCw4NiB6IE0gMzg0LDEyOCB2IDQ0IGggLTg2IHYgODQgaCAxNzAgdiA0NCBIIDM0MCBjIC0yNCwwIC00MiwxOCAtNDIsNDIgdiAxMjggYyAwLDI0IDE4LDQyIDQyLDQyIGggNDQgdiA0NCBoIDg0IHYgLTQ0IGggODYgViA0MjggSCAzODQgdiAtNDQgaCAxMjggYyAyNCwwIDQyLC0xOCA0MiwtNDIgViAyMTQgYyAwLC0yNCAtMTgsLTQyIC00MiwtNDIgaCAtNDQgdiAtNDQgeiIKICAgICBmaWxsPSIjYTJhYWIyIgogICAgIGlkPSJwYXRoNjUiIC8+Cjwvc3ZnPgo=';
 
@@ -371,14 +328,17 @@ class WC_Payments_Admin {
 			]
 		);
 
-		if ( $this->account->is_account_rejected() ) {
+		// Merchants are unable to see their deposits, transactions, disputes and settings if their account is rejected or under review.
+		// That's expected, because account under review is hard-blocked account that spends in a review pretty short time-frame.
+		// Either merchant gets approved and continues to use payments or they remain suspended and can't use payments.
+		if ( $this->account->is_account_rejected() || $this->account->is_account_under_review() ) {
 			// If the account is rejected, only show the overview page.
 			wc_admin_register_page( $this->admin_child_pages['wc-payments-overview'] );
 			return;
 		}
 
-		if ( ! $should_render_full_menu ) {
-			if ( WC_Payments_Utils::should_use_progressive_onboarding_flow() ) {
+		if ( ! $this->account->is_stripe_connected() ) {
+			if ( WC_Payments_Utils::should_use_new_onboarding_flow() ) {
 				wc_admin_register_page(
 					[
 						'id'         => 'wc-payments-onboarding',
@@ -532,14 +492,12 @@ class WC_Payments_Admin {
 			);
 		}
 
-		// RTL=false for these files as they aren't currently transpiled by webpack.
 		WC_Payments_Utils::enqueue_style(
 			'wcpay-admin-css',
 			plugins_url( 'assets/css/admin.css', WCPAY_PLUGIN_FILE ),
 			[],
 			WC_Payments::get_file_version( 'assets/css/admin.css' ),
 			'all',
-			false
 		);
 
 		$this->add_menu_notification_badge();
@@ -716,6 +674,23 @@ class WC_Payments_Admin {
 
 			if ( $order && WC_Payment_Gateway_WCPay::GATEWAY_ID === $order->get_payment_method() ) {
 				$refund_amount = $order->get_remaining_refund_amount();
+
+				// Check if the order's test mode meta matches the site's current test mode state.
+				// E.g. order and site are both in test mode, or both in live mode.
+				$order_mode = $order->get_meta( WC_Payments_Order_Service::WCPAY_MODE_META_KEY );
+				if ( '' === $order_mode ) {
+					// If the order doesn't have a mode set, assume it was created before the order mode meta was added (< 6.9 PR#7651) and return null.
+					$order_test_mode_match = null;
+				} else {
+					$order_test_mode_match = (
+						\WCPay\Constants\Order_Mode::PRODUCTION === $order_mode &&
+						WC_Payments::mode()->is_live()
+					) || (
+						\WCPay\Constants\Order_Mode::TEST === $order_mode &&
+						WC_Payments::mode()->is_test()
+					);
+				}
+
 				wp_localize_script(
 					'WCPAY_ADMIN_ORDER_ACTIONS',
 					'wcpay_order_config',
@@ -727,6 +702,9 @@ class WC_Payments_Admin {
 						'refundedAmount'        => $order->get_total_refunded(),
 						'canRefund'             => $this->wcpay_gateway->can_refund_order( $order ),
 						'chargeId'              => $this->order_service->get_charge_id_for_order( $order ),
+						'hasOpenAuthorization'  => $this->order_service->has_open_authorization( $order ),
+						'testMode'              => \WCPay\Constants\Order_Mode::TEST === $order->get_meta( WC_Payments_Order_Service::WCPAY_MODE_META_KEY ),
+						'orderTestModeMatch'    => $order_test_mode_match,
 					]
 				);
 				wp_localize_script(
@@ -772,6 +750,7 @@ class WC_Payments_Admin {
 		}
 
 		$locale_info = include $path;
+
 		// Get symbols for those currencies without a short one.
 		$symbols       = get_woocommerce_currency_symbols();
 		$currency_data = [];
@@ -801,7 +780,7 @@ class WC_Payments_Admin {
 		try {
 			$dev_mode = WC_Payments::mode()->is_dev();
 		} catch ( Exception $e ) {
-			Logger::log( sprintf( 'WooPayments JS settings: Could not determine if WCPay should be in dev mode! Message: %s', $e->getMessage() ), 'warning' );
+			Logger::log( sprintf( 'WooPayments JS settings: Could not determine if WCPay should be in sandbox mode! Message: %s', $e->getMessage() ), 'warning' );
 		}
 
 		$connect_url       = WC_Payments_Account::get_connect_url();
@@ -812,6 +791,7 @@ class WC_Payments_Admin {
 		}
 
 		$this->wcpay_js_settings = [
+			'version'                       => WCPAY_VERSION_NUMBER,
 			'connectUrl'                    => $connect_url,
 			'connect'                       => [
 				'country'            => WC()->countries->get_base_country(),
@@ -825,7 +805,6 @@ class WC_Payments_Admin {
 			// Set this flag for use in the front-end to alter messages and notices if on-boarding has been disabled.
 			'onBoardingDisabled'            => WC_Payments_Account::is_on_boarding_disabled(),
 			'onboardingFieldsData'          => $this->onboarding_service->get_fields_data( get_user_locale() ),
-			'onboardingFlowState'           => $this->onboarding_service->get_onboarding_flow_state(),
 			'errorMessage'                  => $error_message,
 			'featureFlags'                  => $this->get_frontend_feature_flags(),
 			'isSubscriptionsActive'         => class_exists( 'WC_Subscriptions' ) && version_compare( WC_Subscriptions::$version, '2.2.0', '>=' ),
@@ -840,10 +819,6 @@ class WC_Payments_Admin {
 			'accountEmail'                  => $this->account->get_account_email(),
 			'showUpdateDetailsTask'         => $this->get_should_show_update_business_details_task( $account_status_data ),
 			'wpcomReconnectUrl'             => $this->payments_api_client->is_server_connected() && ! $this->payments_api_client->has_server_connection_owner() ? WC_Payments_Account::get_wpcom_reconnect_url() : null,
-			'additionalMethodsSetup'        => [
-				'isUpeEnabled' => WC_Payments_Features::is_upe_enabled(),
-				'upeType'      => WC_Payments_Features::get_enabled_upe_type(),
-			],
 			'multiCurrencySetup'            => [
 				'isSetupCompleted' => get_option( 'wcpay_multi_currency_setup_completed' ),
 			],
@@ -867,13 +842,19 @@ class WC_Payments_Admin {
 			'accountDefaultCurrency'        => $this->account->get_account_default_currency(),
 			'frtDiscoverBannerSettings'     => get_option( 'wcpay_frt_discover_banner_settings', '' ),
 			'storeCurrency'                 => get_option( 'woocommerce_currency' ),
-			'isBnplAffirmAfterpayEnabled'   => WC_Payments_Features::is_bnpl_affirm_afterpay_enabled(),
 			'isWooPayStoreCountryAvailable' => WooPay_Utilities::is_store_country_available(),
 			'woopayLastDisableDate'         => $this->wcpay_gateway->get_option( 'platform_checkout_last_disable_date' ),
 			'isStripeBillingEnabled'        => WC_Payments_Features::is_stripe_billing_enabled(),
 			'isStripeBillingEligible'       => WC_Payments_Features::is_stripe_billing_eligible(),
 			'capabilityRequestNotices'      => get_option( 'wcpay_capability_request_dismissed_notices ', [] ),
 			'storeName'                     => get_bloginfo( 'name' ),
+			'isNextDepositNoticeDismissed'  => WC_Payments_Features::is_next_deposit_notice_dismissed(),
+			'reporting'                     => [
+				'exportModalDismissed' => get_option( 'wcpay_reporting_export_modal_dismissed', false ),
+			],
+			'locale'                        => WC_Payments_Utils::get_language_data( get_locale() ),
+			'trackingInfo'                  => $this->account->get_tracking_info(),
+			'lifetimeTPV'                   => $this->account->get_lifetime_total_payments_volume(),
 		];
 
 		return apply_filters( 'wcpay_js_settings', $this->wcpay_js_settings );
@@ -914,7 +895,6 @@ class WC_Payments_Admin {
 			[
 				'paymentTimeline' => self::version_compare( WC_ADMIN_VERSION_NUMBER, '1.4.0', '>=' ),
 				'customSearch'    => self::version_compare( WC_ADMIN_VERSION_NUMBER, '1.3.0', '>=' ),
-				'upeType'         => WC_Payments_Features::get_enabled_upe_type(),
 			],
 			WC_Payments_Features::to_array()
 		);
@@ -1122,28 +1102,6 @@ class WC_Payments_Admin {
 	}
 
 	/**
-	 * Prevent access to onboarding flow if the server is not connected.
-	 * Redirect back to the connect page with an error message.
-	 */
-	public function maybe_redirect_onboarding_flow_to_connect(): void {
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			return;
-		}
-		$url_params = wp_unslash( $_GET ); // phpcs:ignore WordPress.Security.NonceVerification
-		if ( isset( $url_params['page'] ) && 'wc-admin' === $url_params['page']
-			&& isset( $url_params['path'] ) && '/payments/onboarding' === $url_params['path'] && ! $this->payments_api_client->is_server_connected() ) {
-				$this->account->redirect_to_onboarding_welcome_page(
-					sprintf(
-					/* translators: %s: WooPayments */
-						__( 'Please connect to WordPress.com to start using %s.', 'woocommerce-payments' ),
-						'WooPayments'
-					)
-				);
-			return;
-		}
-	}
-
-	/**
 	 * Add woopay as a payment method to the edit order on admin.
 	 *
 	 * @param int $order_id order_id.
@@ -1262,7 +1220,7 @@ class WC_Payments_Admin {
 	 * @return int The number of disputes which need a response.
 	 */
 	private function get_disputes_awaiting_response_count() {
-		$send_callback = function() {
+		$send_callback = function () {
 			$request = Request::get( WC_Payments_API_Client::DISPUTES_API . '/status_counts' );
 			$request->assign_hook( 'wcpay_get_dispute_status_counts' );
 			return $request->send();
@@ -1292,7 +1250,7 @@ class WC_Payments_Admin {
 		$test_mode = WC_Payments::mode()->is_test();
 		$cache_key = $test_mode ? DATABASE_CACHE::AUTHORIZATION_SUMMARY_KEY_TEST_MODE : DATABASE_CACHE::AUTHORIZATION_SUMMARY_KEY;
 
-		$send_callback         = function() {
+		$send_callback         = function () {
 			$request = Request::get( WC_Payments_API_Client::AUTHORIZATIONS_API . '/summary' );
 			$request->assign_hook( 'wc_pay_get_authorizations_summary' );
 			return $request->send();
